@@ -1,0 +1,119 @@
+import Image from "next/image"
+
+export const Footer = () => {
+  return (
+    <footer className="px-6 py-12 bg-gray-900 text-white">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-4 gap-8 mb-8">
+          <div>
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 rounded-lg overflow-hidden shadow-lg">
+                <Image
+                  src="/logo.png"
+                  alt="SAMPARK Logo"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-xl font-semibold">
+                SAMPARK<span className="text-blue-400">AI</span>
+              </span>
+            </div>
+            <p className="text-gray-400 text-sm">Transforming businesses with AI-driven automation solutions.</p>
+          </div>
+
+          <div>
+            <h3 className="font-semibold mb-4">Services</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li>
+                <a href="#" className="hover:text-white transition-colors">
+                  Process Automation
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-white transition-colors">
+                  Data Analytics
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-white transition-colors">
+                  AI Integration
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-white transition-colors">
+                  Consulting
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-semibold mb-4">Company</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li>
+                <a href="#" className="hover:text-white transition-colors">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-white transition-colors">
+                  Careers
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-white transition-colors">
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-white transition-colors">
+                  Blog
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-semibold mb-4">Legal</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li>
+                <a href="#" className="hover:text-white transition-colors">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-white transition-colors">
+                  Terms of Service
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-white transition-colors">
+                  Cookie Policy
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-800 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-400 text-sm">© 2024 SAMpark. All rights reserved.</p>
+            <div className="flex space-x-6 mt-4 md:mt-0">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+                Privacy
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+                Terms
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+                Support
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  )
+}
