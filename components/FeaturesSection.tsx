@@ -32,8 +32,11 @@ const features = [
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="py-20 bg-gradient-to-br from-slate-100 to-slate-200">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="features" className="relative py-20 overflow-hidden rounded-3xl -mt-10 shadow-neumorphic-inset">
+      {/* Gradient background */}
+      <div className=" shadow-neumorphic-inset absolute inset-0 bg-[linear-gradient(115deg,var(--tw-gradient-stops))] from-[#f0f9ff] from-[1%] via-[#93c5fd] via-[50%] to-[#d8b4fe] sm:bg-[linear-gradient(145deg,var(--tw-gradient-stops))] opacity-100 rounded-3xl"></div>
+      
+      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-6 mb-16">
           <div className="inline-flex items-center px-6 py-3 rounded-2xl shadow-neumorphic-inset bg-white text-gray-600">
             Core Features
@@ -56,6 +59,7 @@ export function FeaturesSection() {
                 key={index}
                 className="p-8 rounded-3xl shadow-neumorphic-inset bg-white border-2 border-blue-500/20 flex flex-col h-full"
               >
+                
                 <div className="space-y-6 flex flex-col h-full">
                   <div
                     className="w-16 h-16 rounded-2xl shadow-neumorphic-inset bg-white text-blue-600 flex items-center justify-center"

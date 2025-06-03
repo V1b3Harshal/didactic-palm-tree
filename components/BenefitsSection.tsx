@@ -39,8 +39,11 @@ export const BenefitsSection = () => {
   ]
 
   return (
-    <section id="benefits" className="px-4 py-16 sm:px-6 sm:py-20 lg:py-24 bg-gradient-to-br from-blue-50 via-slate-50 to-purple-50">
-      <div className="max-w-7xl mx-auto">
+    <section id="benefits" className="relative px-4 -mt-5 py-16 sm:px-6 sm:py-20 lg:py-24 rounded-3xl">
+      {/* Gradient background */}
+      <div className="absolute inset-0 rounded-3xl bg-[linear-gradient(115deg,var(--tw-gradient-stops))] from-[#f0f9ff] from-[1%] via-[#93c5fd] via-[50%] to-[#feb4ef] sm:bg-[linear-gradient(145deg,var(--tw-gradient-stops))] opacity-100"></div>
+      
+      <div className="max-w-7xl mx-auto relative">
         <div className="text-center mb-12 sm:mb-16">
           <div className="inline-flex items-center neumorphic-card px-5 py-2 rounded-xl text-purple-600 text-sm font-medium mb-5">
             <Zap className="w-4 h-4 mr-2" />
@@ -57,7 +60,6 @@ export const BenefitsSection = () => {
           </p>
         </div>
 
-        {/* Key Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12 sm:mb-16">
           {stats.map((stat, index) => (
             <div key={index} className="neumorphic-card rounded-xl p-4 sm:p-5 text-center">
@@ -72,7 +74,7 @@ export const BenefitsSection = () => {
 
         {/* Cost-Effective AI Agents Feature */}
         <div className="mb-16" ref={progressBarRef}>
-          <div className="neumorphic-card rounded-3xl p-6 sm:p-8 bg-white">
+          <div className="shadow-neumorphic-inset rounded-3xl p-6 sm:p-8 bg-white">
             <div className="text-center mb-8">
               <div className="flex flex-col items-center justify-center mb-4">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg mb-4">
@@ -118,7 +120,7 @@ export const BenefitsSection = () => {
                         ></div>
                       </div>
                       <div className="absolute -bottom-6 left-0 right-0 text-center">
-                        <div className="text-lg sm:text-xl font-bold text-gray-700">$20</div>
+                        <div className="text-sm sm:text-lg font-bold text-gray-200">$20</div>
                         <div className="text-xs sm:text-sm text-gray-500">per interview</div>
                       </div>
                     </div>
@@ -239,7 +241,7 @@ export const BenefitsSection = () => {
                         ></div>
                       </div>
                       <div className="absolute -bottom-6 left-0 right-0 text-center">
-                        <div className="text-lg sm:text-xl font-bold text-blue-600">∞</div>
+                        <div className="text-l sm:text-xl font-bold text-gray-100">1000+</div>
                         <div className="text-xs sm:text-sm text-blue-500">concurrent interviews</div>
                       </div>
                     </div>
