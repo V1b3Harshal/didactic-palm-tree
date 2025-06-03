@@ -49,13 +49,13 @@ export const DemoSection = () => {
   return (
     <section
   id="demo"
-  className=" shadow-neumorphic-inset relative pt-2 pb-15 bg-gradient-to-br from-slate-100 via-blue-50 to-purple-50 rounded-3xl /"
+  className=" shadow-neumorphic-inset relative pt-2 pb-15 bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl /"
 >  {/* Gradient background */}
-  <div className=" shadow-neumorphic-inset absolute inset-0 rounded-3xl ring-1 ring-inset ring-black/10 bg-[linear-gradient(115deg,var(--tw-gradient-stops))] from[#d8b4fe] from-[10%] via-[#93c5fd] via-[50%] to- [1%]-[#f0f9ff]  sm:bg-[linear-gradient(145deg,var(--tw-gradient-stops))] opacity-100"></div>
+  <div className=" shadow-neumorphic-inset absolute inset-0 rounded-3xl ring-1 ring-inset ring-black/10 bg-[linear-gradient(115deg,var(--tw-gradient-stops))] from[#d8b4fe] from-[10%] via-[#93c5fd] via-[50%] to- [1%]-[#f0f9ff]  sm:bg-[linear-gradient(145deg,var(--tw-gradient-stops))] opacity-0"></div>
   
       <div className="max-w-6xl mx-auto px-6 rounded-3xl">
         {/* Neumorphic card container */}
-        <div className="shadow-neumorphic-inset rounded-3xl p-8 md:p-12 lg:p-16  backdrop-blur-sm relative overflow-hidden">
+        <div className="shadow-neumorphic-inset rounded-3xl p-8 md:p-12 lg:p-16  backdrop-blur-xl relative overflow-hidden">
   {/* Gradient background */}
   <div className=" shadow-neumorphic-inset absolute inset-0 rounded-3xl ring-1 ring-inset ring-black/10 bg-[linear-gradient(115deg,var(--tw-gradient-stops))] from-[#f0f9ff]  from-[1%] via-[#93c5fd] via-[50%] to-[#feb4d7] sm:bg-[linear-gradient(145deg,var(--tw-gradient-stops))] opacity-100 " ></div>
   
