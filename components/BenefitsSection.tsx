@@ -39,13 +39,13 @@ export const BenefitsSection = () => {
   ]
 
   return (
-    <section id="benefits" className="relative px-4 -mt-5 py-16 sm:px-6 sm:py-20 lg:py-24 rounded-3xl">
+    <section id="benefits" className="relative px-4 -mt-5 py-16 sm:px-6 sm:py-20 lg:py-24 rounded-3xl shadow-neumorphic-inset">
       {/* Gradient background */}
-      <div className="absolute inset-0 rounded-3xl bg-[linear-gradient(115deg,var(--tw-gradient-stops))] from-[#f0f9ff] from-[1%] via-[#93c5fd] via-[50%] to-[#feb4ef] sm:bg-[linear-gradient(145deg,var(--tw-gradient-stops))] opacity-100"></div>
+      <div className=" shadow-neumorphic-inset absolute inset-0 rounded-3xl bg-[linear-gradient(115deg,var(--tw-gradient-stops))] from-[#f0f9ff] from-[1%] via-[#93c5fd] via-[50%] to-[#feb4ef] sm:bg-[linear-gradient(145deg,var(--tw-gradient-stops))] opacity-100"></div>
       
       <div className="max-w-7xl mx-auto relative">
         <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center neumorphic-card px-5 py-2 rounded-xl text-purple-600 text-sm font-medium mb-5">
+          <div className="inline-flex items-center shadow-neumorphic-inset bg-slate-100 px-5 py-2 rounded-xl text-purple-600 text-sm font-medium mb-5">
             <Zap className="w-4 h-4 mr-2" />
             ROI-FOCUSED BENEFITS
           </div>
@@ -62,7 +62,7 @@ export const BenefitsSection = () => {
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12 sm:mb-16">
           {stats.map((stat, index) => (
-            <div key={index} className="neumorphic-card rounded-xl p-4 sm:p-5 text-center">
+            <div key={index} className="shadow-neumorphic-inset bg-slate-100 rounded-xl p-4 sm:p-5 text-center">
               <div className={`flex justify-center mb-2 ${stat.color}`}>
                 <stat.icon className="w-6 h-6 sm:w-8 sm:h-8" />
               </div>
@@ -102,7 +102,7 @@ export const BenefitsSection = () => {
               {/* Finances Comparison */}
               <div className="grid md:grid-cols-2 gap-5 sm:gap-6 mb-8">
                 {/* Human Side */}
-                <div className="neumorphic-card rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:shadow-lg">
+                <div className="shadow-neumorphic-inset bg-slate-100 rounded-2xl p-5 sm:p-6 transition-all duration-300  ">
                   <div className="text-center">
                     <div className="flex items-center justify-center mb-3 sm:mb-4">
                       <Users className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 mr-2" />
@@ -143,7 +143,7 @@ export const BenefitsSection = () => {
                 </div>
 
                 {/* AI Side */}
-                <div className="neumorphic-card rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:shadow-lg relative border-2 border-blue-100">
+                <div className="shadow-neumorphic-inset bg-slate-100 rounded-2xl p-5 sm:p-6 transition-all duration-300   relative border-2 border-blue-100">
                   <div className="absolute -top-3 -right-3 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md z-10">
                     RECOMMENDED
                   </div>
@@ -190,7 +190,7 @@ export const BenefitsSection = () => {
               {/* Time & Resources Comparison */}
               <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
                 {/* Human Side */}
-                <div className="neumorphic-card rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:shadow-lg">
+                <div className="shadow-neumorphic-inset bg-slate-100 rounded-2xl p-5 sm:p-6 transition-all duration-300  ">
                   <div className="text-center">
                     <div className="flex items-center justify-center mb-3 sm:mb-4">
                       <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 mr-2" />
@@ -220,7 +220,7 @@ export const BenefitsSection = () => {
                 </div>
 
                 {/* AI Side */}
-                <div className="neumorphic-card rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:shadow-lg relative">
+                <div className="shadow-neumorphic-inset bg-slate-100 rounded-2xl p-5 sm:p-6 transition-all duration-300   relative">
                   <div className="absolute -top-3 -right-3 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
                     UNLIMITED
                   </div>
@@ -259,7 +259,7 @@ export const BenefitsSection = () => {
         {/* Additional Benefits */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {/* Benefit 1 */}
-          <div className="neumorphic-card rounded-2xl p-6 sm:p-7 hover:shadow-lg transition-all duration-300">
+          <div className="shadow-neumorphic-inset bg-slate-100 rounded-2xl p-6 sm:p-7   transition-all duration-300">
             <div className="flex items-start mb-4">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center mr-4">
                 <BarChart2 className="w-6 h-6 text-purple-600" />
@@ -272,7 +272,7 @@ export const BenefitsSection = () => {
           </div>
 
           {/* Benefit 2 */}
-          <div className="neumorphic-card rounded-2xl p-6 sm:p-7 hover:shadow-lg transition-all duration-300">
+          <div className="shadow-neumorphic-inset bg-slate-100 rounded-2xl p-6 sm:p-7   transition-all duration-300">
             <div className="flex items-start mb-4">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center mr-4">
                 <Settings className="w-6 h-6 text-blue-600" />
@@ -285,7 +285,7 @@ export const BenefitsSection = () => {
           </div>
 
           {/* Benefit 3 */}
-          <div className="neumorphic-card rounded-2xl p-6 sm:p-7 hover:shadow-lg transition-all duration-300">
+          <div className="shadow-neumorphic-inset bg-slate-100 rounded-2xl p-6 sm:p-7   transition-all duration-300">
             <div className="flex items-start mb-4">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center mr-4">
                 <MessageCircle className="w-6 h-6 text-green-600" />

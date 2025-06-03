@@ -49,7 +49,7 @@ export const DemoSection = () => {
   return (
     <section
   id="demo"
-  className=" shadow-neumorphic-inset relative pb-10 bg-gradient-to-br from-slate-100 via-blue-50 to-purple-50 rounded-3xl /"
+  className=" shadow-neumorphic-inset relative pt-2 pb-15 bg-gradient-to-br from-slate-100 via-blue-50 to-purple-50 rounded-3xl /"
 >  {/* Gradient background */}
   <div className=" shadow-neumorphic-inset absolute inset-0 rounded-3xl ring-1 ring-inset ring-black/10 bg-[linear-gradient(115deg,var(--tw-gradient-stops))] from[#d8b4fe] from-[10%] via-[#93c5fd] via-[50%] to- [1%]-[#f0f9ff]  sm:bg-[linear-gradient(145deg,var(--tw-gradient-stops))] opacity-100"></div>
   
@@ -63,8 +63,8 @@ export const DemoSection = () => {
   <div className="relative z-10 rounded-3xl ">
     {/* Rest of your content remains the same */}
     {/* Demo Calls Section */}
-    <div className="text-center mb-16">
-      <div className="inline-block shadow-neumorphic-inset px-6 py-3 rounded-2xl text-purple-600 text-sm font-medium mb-6">
+    <div className="text-center mb-10">
+      <div className="inline-block shadow-neumorphic-inset px-6 py-3 rounded-2xl text-purple-600 text-sm font-medium mb-2">
         Demo Calls
       </div>
       <h2 className=" text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
@@ -81,11 +81,11 @@ export const DemoSection = () => {
     </div>
 
     {/* Demo Audio Players */}
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16">
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-2">
       {demoAgents.map((agent) => (
         <div
           key={agent.id}
-          className="shadow-neumorphic-inset rounded-2xl p-6 transition-all duration-300"
+          className="shadow-neumorphic-inset bg-slate-50 rounded-2xl p-6 transition-all duration-300"
         >
           <div
             className={`w-16 h-16 bg-gradient-to-r ${agent.color} rounded-2xl flex items-center justify-center mb-6 shadow-neumorphic-inset`}
