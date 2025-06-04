@@ -2,8 +2,9 @@ import Image from "next/image"
 
 export const Footer = () => {
   return (
-    <footer className="px-6 py-12 bg-gray-900 text-white">
-      <div className="max-w-6xl mx-auto">
+    <footer className="bg-gray-900 text-white w-full">
+      
+      <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
             <div className="flex items-center space-x-3 mb-4">
@@ -20,7 +21,9 @@ export const Footer = () => {
                 SAMPARK<span className="text-blue-400">AI</span>
               </span>
             </div>
-            <p className="text-gray-400 text-sm">Transforming businesses with AI-driven automation solutions.</p>
+            <p className="text-gray-400 text-sm">
+              Transforming businesses with AI-driven automation solutions.
+            </p>
           </div>
 
           <div>
@@ -99,15 +102,26 @@ export const Footer = () => {
 
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">© 2024 SAMpark. All rights reserved.</p>
+            <p className="text-gray-400 text-sm">
+              © 2024 SAMpark. All rights reserved.
+            </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white transition-colors text-sm"
+              >
                 Privacy
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white transition-colors text-sm"
+              >
                 Terms
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white transition-colors text-sm"
+              >
                 Support
               </a>
             </div>

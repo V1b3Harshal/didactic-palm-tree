@@ -264,3 +264,10 @@
 .read-the-docs {
   color: #888;
 }
+@media screen and (width: 359px) and (height: 852px) {
+  /* “.hero-adjust” can be whatever name you like */
+  .hero-adjust {
+    /* bump the top‐margin a bit more just for exactly 430×932px */
+    margin-top: 10rem; 
+  }
+}
