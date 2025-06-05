@@ -21,8 +21,8 @@ export const DemoSection = () => {
   // Demo data
   const demoAgents: Agent[] = [
     {
-      id: "eve",
-      name: "Eve",
+      id: "sam",
+      name: "Sam",
       role: "Situational Assessment",
       description:
         "Simulates real-life scenarios by taking on a customer role and testing how candidates assess and handle.",
@@ -32,8 +32,8 @@ export const DemoSection = () => {
       audioUrl: "https://sample-videos.com/audio/mp3/wave.mp3",
     },
     {
-      id: "sam",
-      name: "Sam",
+      id: "erika",
+      name: "Erika",
       role: "Tech Screener",
       description:
         "Asks pinpointed technical questions to gauge candidate proficiency and real‐world experience.",
@@ -97,7 +97,6 @@ export const DemoSection = () => {
     </section>
   )
 }
-
 function AgentCard({
   agent,
   isPlaying,
@@ -217,24 +216,18 @@ function AgentCard({
   const progressPercent =
     duration > 0 ? (currentTime / duration) * 100 : 0
 
-  return (
-    <div
-      className="flex flex-col bg-white rounded-[24px] overflow-hidden w-full max-w-sm min-h-[400px]"
-      style={{
-        boxShadow:
-          "11px 21px 3px rgba(0,0,0,0.06), 14px 27px 7px rgba(0,0,0,0.10), 19px 38px 14px rgba(0,0,0,0.13), 27px 54px 27px rgba(0,0,0,0.16), 39px 78px 50px rgba(0,0,0,0.20), 55px 110px 86px rgba(0,0,0,0.26)",
-      }}
-    >
-      {/* 1) Lottie animation at the top (400px container minus header space) */}
-      <div className="w-full h-48 overflow-hidden">
-        <DotLottieReact
-          src={agent.lottieUrl}
-          loop
-          autoplay
-          speed={0.5}
-          style={{ width: "100%", height: "100%" }}
-        />
-      </div>
+      return (
+         <div className="flex flex-col bg-white rounded-[24px] overflow-hidden w-full max-w-sm min-h-[400px] shadow-md">
+         {/* 1) Lottie animation at the top: keep a fixed aspect ratio instead of a fixed height */}
+         <div className="w-full aspect-video ">
+           <DotLottieReact
+             src={agent.lottieUrl}
+            loop
+             autoplay
+              speed={0.5}
+            className="w-full h-full"
+            />
+       </div>
 
       {/* Hidden audio element */}
       {agent.audioUrl ? (
