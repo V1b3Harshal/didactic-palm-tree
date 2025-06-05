@@ -14,33 +14,43 @@ export const Hero: React.FC = () => {
   return (
     <section className="relative px-4 sm:px-6 bg-white overflow-hidden">
       {/* ─────────────────────────────────────────────────────────────
-          Full‐screen absolute wrapper (covers entire section)
+          1) Full-screen absolute wrapper for backgrounds (image + shader)
           ───────────────────────────────────────────────────────────── */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        {/* 
-          1) Put the shader in its own absolute div with z-0 
-             And apply transform utilities:
-             - translate-y-12 on mobile (push it down ~3rem)
-             - scale-150 on mobile (1.5× size)
-             - reset translate and scale at md breakpoint
+      <div className="absolute inset-0 pointer-events-none">
+        {/* ───────────────
+            a) Background image at the very back (z-0)
+            ─────────────── */}
+        <div
+          className="
+            absolute inset-0 
+            bg-cover bg-center 
+            z-0
+          "
+          style={{ backgroundImage: "url('/hero.jpg')" }}
+        />
+
+        {/* ─────────────────────────────────────────────────────────────
+            b) Shader on top of the image (z-10)
+            ─────────────────────────────────────────────────────────────
+            We’re also re-using the same translate/scale hack from before,
+            so on mobile it’s pushed down & enlarged; resets at md:
         */}
         <div
           className="
-            absolute inset-0 z-0 
+            absolute inset-0 
             transform 
-            translate-y-24 scale-150 
-            md:translate-y-0 md:scale-100
+            translate-y-12 scale-150 
+            md:translate-y-0 md:scale-100 
+            z-10
           "
         >
-          <ShaderBackground />
-        </div>
-
-        {/* 2) Layer the BigText on top with a higher z-index */}
-        <div className="relative z-10">
-        
+         
         </div>
       </div>
 
+      {/* ─────────────────────────────────────────────────────────────
+          2) Main content (BigText + PhoneMockup etc.) sits above both
+          ───────────────────────────────────────────────────────────── */}
       <div className="relative z-20 flex flex-col items-center justify-center w-full max-w-5xl space-y-8 pt-24 pb-0 mx-auto">
         <h1
           className="
@@ -51,7 +61,7 @@ export const Hero: React.FC = () => {
           AI Voice Agents That Talk Like Humans
         </h1>
 
-        {/* 2) Phone mockup + form section (now extracted) */}
+        {/* Phone mockup + form section */}
         <PhoneMockup />
       </div>
     </section>
