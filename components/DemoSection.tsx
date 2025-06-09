@@ -57,16 +57,21 @@ export const DemoSection = () => {
 
   return (
     <section
-      id="demo"
-      className="relative pt-2 pb-32 bg-gradient-to-br from-blue-50 to-purple-50"
-    >
+    id="demo"
+    className="
+      relative 
+      z-20                         /* sit above the phone */
+      -mt-8 md:-mt-10            /* pull it up 8rem on mobile, 12rem on md+ */
+      neumorphic-inset shadow-neumorphic-inset
+      pb-32
+      bg-gradient-to-b from-[#E4E4E4] to-[#FFFFFF] rounded-3xl
+    "
+  >
       <div className="max-w-6xl mx-auto px-6">
         <div className="rounded-3xl p-8 md:p-12 lg:p-16">
           {/* Section Header */}
-          <div className="text-center mb-10">
-            <div className="inline-block shadow-neumorphic-inset px-6 py-3 rounded-2xl text-purple-600 text-sm font-medium mb-2">
-              Demo Calls
-            </div>
+          <div className="text-center">
+            
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
               Experience Our{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-600">
@@ -82,7 +87,7 @@ export const DemoSection = () => {
           </div>
 
           {/* Demo Cards Grid */}
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 bg-gradient-to-b from-[#DFDBFE] to-[#EBD7FC] pt-5 pb-5 rounded-3xl px-5">
             {demoAgents.map((agent) => (
               <AgentCard
                 key={agent.id}

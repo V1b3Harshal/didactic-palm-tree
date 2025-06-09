@@ -60,7 +60,7 @@ export function FeaturesSection() {
   return (
     <section
       id="features"
-      className="relative pt-16 pb-32 bg-gradient-to-br from-blue-50 to-purple-50"
+      className="relative pt-16 pb-32bg-gradient-to-b from-[#E4E4E4] to-[#FFFFFF]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* ─── Section Header ────────────────────────────────────────────────── */}

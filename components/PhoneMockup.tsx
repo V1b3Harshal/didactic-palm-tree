@@ -1,149 +1,214 @@
+// components/PhoneMockup.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Phone } from "lucide-react";
+import { SignalHigh, Wifi, Battery, X } from "lucide-react";
 import Image from "next/image";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import CallPanel from "./call";
 
-export const PhoneMockup: React.FC = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [heroAnimationData, setHeroAnimationData] = useState<any>(null);
+const PhoneMockup: React.FC = () => {
+  const [isHovered, setIsHovered] = useState(false);
 
-  useEffect(() => {
-    const loadAnimation = async () => {
-      try {
-        const response = await fetch("/hero.json");
-        const data = await response.json();
-        setHeroAnimationData(data);
-      } catch (error) {
-        console.error("Failed to load animation:", error);
-      }
-    };
-    loadAnimation();
-  }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (phoneNumber) {
-      setIsSubmitted(true);
-      setTimeout(() => setIsSubmitted(false), 3000);
-    }
+  // 3D transforms for the phone body
+  const phoneStyle: React.CSSProperties = {
+    transform: isHovered ? "rotateX(20deg)" : "none",
+    transformStyle: "preserve-3d",
+    WebkitTransformStyle: "preserve-3d",
+    transition: "transform 0.7s",
   };
 
-  return (
-    <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
-      {/* Floating Dot Lottie (behind the phone) */}
-      {heroAnimationData && (
-        <div
-          className="
-            absolute -top-[35px] sm:-top-[36px] md:-top-[44px]
-            left-[calc(85%+15px)] -translate-x-1/2
-            w-1/2 sm:w-1/2 md:w-2/5 lg:w-1/3 
-            aspect-square 
-            opacity-100
-            z-0
-          "
-        >
-          <DotLottieReact
-            src="https://lottie.host/28678e3a-1882-46c3-ae84-ed44b5204a05/falHxt8bTU.lottie"
-            loop
-            autoplay
-            style={{ width: "100%", height: "100%" }}
-          />
-        </div>
-      )}
+  // 3D transforms for the inner content ("cards")
+  const contentStyle: React.CSSProperties = {
+    transform: isHovered ? "translateZ(70px) rotateX(-20deg)" : "none",
+    transformStyle: "preserve-3d",
+    WebkitTransformStyle: "preserve-3d",
+    backfaceVisibility: "hidden",
+    WebkitBackfaceVisibility: "hidden",
+    transition: "transform 0.7s",
+  };
 
-      {/* iPhone mockup container */}
-      <div className="relative overflow-hidden pb-[100%] z-10">
-        <Image
-          src="/iphone-mockup.svg"
-          alt="iPhone Mockup"
-          fill
-          className="absolute inset-0 object-cover object-top"
-          priority
+  // Compute date & time once on mount
+  const [dateString, setDateString] = useState("");
+  const [timeString, setTimeString] = useState("");
+  useEffect(() => {
+    const now = new Date();
+    setDateString(
+      now.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+      })
+    );
+    setTimeString(
+      now.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+      })
+    );
+  }, []);
+
+  return (
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{ perspective: "1000px" }}
+      className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg aspect-[433/882]"
+    >
+      <div style={phoneStyle} className="absolute inset-0">
+        {/* DARK BACKING */}
+        <div
+          className="absolute inset-[10px] rounded-[12%] pointer-events-none"
+          style={{
+            backgroundColor: "black",
+            transform: "translateZ(-1px)",
+            transformStyle: "preserve-3d",
+            WebkitTransformStyle: "preserve-3d",
+          }}
         />
 
-        {/* Notification + Form on top of the phone */}
-        <div className="absolute inset-0 flex flex-col items-center pt-16 sm:pt-20 px-4 sm:px-7 z-20">
-          <div className="w-full max-w-[240px] sm:max-w-[280px] mt-2 sm:mt-4">
-            {/* Notification */}
-            <div
-              className="
-                bg-white/95 backdrop-blur-sm rounded-xl p-3 mb-3 sm:mb-4
-                shadow-sm border border-gray-200
-              "
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gray-900 rounded-xl flex items-center justify-center shrink-0">
-                  <Phone className="w-4 h-4 text-white" />
-                </div>
-                <div className="flex-1 text-left">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-gray-900">
-                      Call Sampark AI
-                    </span>
-                    <span className="text-[10px] text-gray-500">now</span>
-                  </div>
-                  <p className="text-[11px] text-gray-600 mt-0.5">
-                    Talk to Our AI Agents
-                  </p>
-                </div>
-              </div>
-            </div>
+        {/* WALLPAPER (never catches taps) */}
+        <div
+          className="absolute inset-[10px] overflow-hidden rounded-[12%] pointer-events-none"
+          style={{
+            transformStyle: "preserve-3d",
+            WebkitTransformStyle: "preserve-3d",
+          }}
+        >
+          <Image
+            src="/iphone-wallpaper.jpg"
+            alt="iPhone Wallpaper"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
 
-            {/* Form */}
-            <div
-              className="
-                bg-white/95 backdrop-blur-sm rounded-xl p-3 sm:p-4
-                shadow-sm border border-gray-200
-              "
-            >
-              {!isSubmitted ? (
-                <form onSubmit={handleSubmit} className="space-y-2">
-                  <div className="relative">
-                    <input
-                      type="tel"
-                      value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                      placeholder="Enter Phone Number"
-                      className="
-                        w-full px-3 py-2 text-sm sm:text-base 
-                        bg-gray-50 border border-gray-200 rounded-lg 
-                        text-gray-900 placeholder-gray-500 
-                        focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent
-                      "
-                      required
-                    />
-                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                      <div className="w-1 h-3 bg-blue-500 animate-pulse rounded-sm" />
-                    </div>
-                  </div>
-                  <button
-                    type="submit"
-                    className="
-                      w-full bg-gray-900 text-white py-2 rounded-lg 
-                      text-sm font-semibold hover:bg-gray-800 
-                      transition-colors duration-200
-                    "
-                  >
-                    Let's Talk
-                  </button>
-                </form>
-              ) : (
-                <div className="text-center py-3">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <Phone className="w-4 h-4 text-white" />
-                  </div>
-                  <p className="text-xs text-gray-900 font-medium">
-                    You are now receiving a call from Sampark AI.
-                  </p>
-                </div>
-              )}
-            </div>
+        {/* STATUS BAR */}
+        <div
+          style={{
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            transformStyle: "preserve-3d",
+            WebkitTransformStyle: "preserve-3d",
+          }}
+          className="
+            absolute
+            top-[5%]
+            inset-x-8
+            sm:inset-x-6
+            md:inset-x-10
+            flex justify-between items-center
+            z-10
+          "
+        >
+          <span className="text-xs sm:text-base font-medium text-white leading-none">
+            {timeString}
+          </span>
+          <div className="flex items-center space-x-1 sm:space-x-2">
+            <SignalHigh className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            <Wifi       className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            <Battery    className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           </div>
+        </div>
+
+        {/* BIG DATE & TIME */}
+        <div
+          style={{
+            transformStyle: "preserve-3d",
+            WebkitTransformStyle: "preserve-3d",
+          }}
+          className="absolute top-[16%] sm:top-[18%] lg:top-[12%] w-full flex flex-col items-center"
+        >
+          <span className="text-white text-lg sm:text-xl leading-tight">
+            {dateString}
+          </span>
+          <span className="text-white text-3xl sm:text-5xl leading-tight -mt-0.5 sm:-mt-1">
+            {timeString}
+          </span>
+        </div>
+
+        {/* “Notifications” HEADER */}
+        <div
+          style={{
+            transformStyle: "preserve-3d",
+            WebkitTransformStyle: "preserve-3d",
+          }}
+          className="
+            absolute
+            top-[30%] sm:top-[27%]
+            w-full flex items-center justify-between
+            px-6 sm:px-6 md:px-10
+          "
+        >
+          <span className="text-white text-base sm:text-lg font-medium">
+            Notifications
+          </span>
+          <button
+            className="
+              w-6 h-6 sm:w-7 sm:h-7
+              flex items-center justify-center
+              bg-white/20 rounded-full
+              transition hover:bg-white/30
+            "
+            style={{
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+            }}
+          >
+            <X className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+          </button>
+        </div>
+
+        {/* ─── ③ Notification Cards (lifted above the SVG frame) ─────────────── */}
+        <div
+          style={{
+            ...contentStyle,         // apply our 3D lift
+            pointerEvents: "none",   // but don’t catch any taps here
+          }}
+          className="
+                     absolute inset-0
+                     flex flex-col items-center
+                     pt-[200px]      /* 200px top on mobile */
+                     sm:pt-[260px]   /* back to 260px on sm+ */
+                     px-[30px]
+                     z-[999]
+                     pointer-events-none
+                   "
+                  >   
+                   <div
+                     className="
+                       w-full
+                       pointer-events-auto
+                       origin-top
+                       text-sm        /* smaller text on mobile */
+                       sm:text-base   /* normal text at sm+ */
+                       space-y-2      /* a bit less vertical gap */
+                     "
+                    style={{ zIndex: 1 }}
+                   >
+           <CallPanel />
+         </div>
+        </div>
+
+        {/* IPHONE FRAME (non-interactive) */}
+        <div
+          className="absolute inset-0 z-30 pointer-events-none"
+          style={{
+            transformStyle: "preserve-3d",
+            WebkitTransformStyle: "preserve-3d",
+          }}
+        >
+          <Image
+            src="/iphone-mockup.svg"
+            alt="iPhone Mockup"
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
       </div>
     </div>
   );
 };
+
+export default PhoneMockup;

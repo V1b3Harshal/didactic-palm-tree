@@ -40,8 +40,8 @@ export default function Navigation() {
             absolute inset-0
             transition-all duration-300
             ${scrolled
-              ? "bg-white/60 backdrop-blur-lg border-b border-white/30 shadow-md"
-              : "bg-white/30 backdrop-blur-lg border-b border-white/20"
+              ? "bg-white/10 backdrop-blur-xl shadow-md"
+              : "bg-transparent"
             }
           `}
         />
@@ -54,11 +54,11 @@ export default function Navigation() {
         <div className="relative z-10 flex items-center justify-between px-6 py-4">
           {/* Logo Section */}
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-black rounded-md flex items-center justify-center">
+            <div className="w-8 h-8 rounded-md flex items-center justify-center">
               <img
-                src="/placeholder.svg?height=32&width=32"
+                src="/logo.png"
                 alt="Sampark AI Logo"
-                className="w-6 h-6"
+                className="w-8 h-8"
               />
             </div>
             <span className="text-xl font-bold text-gray-900">
