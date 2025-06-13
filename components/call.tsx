@@ -1,4 +1,4 @@
-// components/call.tsx
+// components/CallPanel.tsx
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
@@ -7,196 +7,174 @@ import { Phone } from "lucide-react";
 
 interface Agent {
   name: string;
-  bgColor: string;      // you can drop this now if you don't need the colored border
-  avatar: string;       // path relative to /public
+  avatar: string;
+  subtitle: string;
 }
 
 const CallPanel: React.FC = () => {
   const agents: Agent[] = [
-    { name: "Aisha", bgColor: "bg-blue-500",   avatar: "/toolxox.com-qLW6i.jpg" },
-    { name: "Rohan", bgColor: "bg-green-500",  avatar: "/toolxox.com-TQMeR.jpg" },
-    { name: "Mei",   bgColor: "bg-purple-500", avatar: "/toolxox.com-TXNK8.jpg" },
+    {
+      name: "Lisa",
+      avatar: "/Flux_Schnell_A_cuttingedge_AI_voice_agent_for_the_call_center__0.jpg",
+      subtitle: "Human-like conversational AI",
+    },
+    {
+      name: "Rohan",
+      avatar: "/Flux_Schnell_A_highly_detailed_photorealistic_portrait_of_a_mo_2.jpg",
+      subtitle: "24/7 Support Specialist",
+    },
+    {
+      name: "Mei",
+      avatar: "/AlbedoBase_XL_A_cuttingedge_AI_voice_agent_for_the_call_center_3.jpg",
+      subtitle: "Language & Culture Expert",
+    },
   ];
 
-  const [currentCallAgent, setCurrentCallAgent] = useState<string | null>(null);
-  const [callStatus, setCallStatus] = useState<
+  const [active, setActive] = useState<string | null>(null);
+  const [status, setStatus] = useState<
     "idle" | "connecting" | "ringing" | "inCall" | "busy" | "declined"
   >("idle");
-  const [callSeconds, setCallSeconds] = useState(0);
+  const [seconds, setSeconds] = useState(0);
   const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (callStatus === "connecting") {
-      const t = window.setTimeout(() => setCallStatus("ringing"), 2000);
+    if (!active) return;
+
+    if (status === "connecting") {
+      const t = window.setTimeout(() => setStatus("ringing"), 2000);
       return () => clearTimeout(t);
     }
-    if (callStatus === "ringing") {
+
+    if (status === "ringing") {
       const t = window.setTimeout(() => {
-        const outcome = Math.random();
-        if (outcome < 0.2) setCallStatus("busy");
-        else if (outcome < 0.4) setCallStatus("declined");
-        else setCallStatus("inCall");
+        const r = Math.random();
+        setStatus(r < 0.2 ? "busy" : r < 0.4 ? "declined" : "inCall");
       }, 3000);
       return () => clearTimeout(t);
     }
-    if (callStatus === "inCall") {
+
+    if (status === "inCall") {
       timerRef.current = window.setInterval(() => {
-        setCallSeconds((s) => s + 1);
+        setSeconds((s) => s + 1);
       }, 1000);
       return () => {
-        if (timerRef.current) {
-          clearInterval(timerRef.current);
-          timerRef.current = null;
-        }
+        if (timerRef.current) clearInterval(timerRef.current);
       };
     }
-  }, [callStatus]);
+  }, [active, status]);
 
-  const startCall = useCallback((agentName: string) => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-    setCurrentCallAgent(agentName);
-    setCallStatus("connecting");
-    setCallSeconds(0);
+  const startCall = useCallback((name: string) => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    setActive(name);
+    setStatus("connecting");
+    setSeconds(0);
   }, []);
 
   const hangUp = useCallback(() => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-    setCurrentCallAgent(null);
-    setCallStatus("idle");
-    setCallSeconds(0);
+    if (timerRef.current) clearInterval(timerRef.current);
+    setActive(null);
+    setStatus("idle");
+    setSeconds(0);
   }, []);
 
-  const formatDuration = (secs: number) => {
-    const mm = String(Math.floor(secs / 60)).padStart(2, "0");
-    const ss = String(secs % 60).padStart(2, "0");
-    return `${mm}:${ss}`;
+  const fmt = (s: number) => {
+    const m = String(Math.floor(s / 60)).padStart(2, "0");
+    const sec = String(s % 60).padStart(2, "0");
+    return `${m}:${sec}`;
   };
 
   return (
-    <div className="flex flex-col space-y-1 sm:space-y-2 md:space-y-3 w-full">
+    <div className="flex flex-col gap-3 w-full">
       {agents.map((agent) => {
-        const isActive   = agent.name === currentCallAgent;
-        const isDisabled = currentCallAgent !== null && !isActive;
+        const isActive = agent.name === active;
+        const disabled = active !== null && !isActive;
 
         return (
           <div
             key={agent.name}
             className={`
-              relative flex items-center justify-between
-              bg-gray-900 bg-opacity-90
-              rounded-2xl
-              px-2 sm:px-3 md:px-4
-              py-1 sm:py-2 md:py-3
-              shadow-md
-              w-full
-              ${isDisabled ? "filter blur-sm" : ""}
+              ${disabled ? "opacity-90 pointer-events-none" : ""}
+              bg-gray-900 backdrop-blur-md rounded-2xl shadow-lg
+              px-3 py-3 flex items-center justify-between
+              transition
             `}
           >
-            {isActive ? (
-              // ─── Active Call Interface ─────────────────────────
-              <div className="flex-1 flex items-center">
-                {/* Avatar */}
-                <div className="flex-shrink-0 mr-1 sm:mr-2 md:mr-3">
-                  <Image
-                    src={agent.avatar}
-                    alt={`${agent.name} avatar`}
-                    width={40}
-                    height={40}
-                    className="rounded-full w-6 h-6 sm:w-8 sm:h-10 md:w-10 md:h-10 object-cover"
-                  />
-                </div>
-
-                {/* Name + status/duration */}
-                <div className="flex-1 flex flex-col">
-                  <span className="text-white text-[10px] sm:text-xs md:text-sm font-medium">
-                    {agent.name}
-                  </span>
-                  <span className="text-gray-300 text-[10px] sm:text-xs md:text-sm mt-0.5">
-                    {callStatus === "connecting" && "Connecting..."}
-                    {callStatus === "ringing"    && "Ringing..."}
-                    {callStatus === "inCall"      && formatDuration(callSeconds)}
-                    {callStatus === "busy"        && "Agent is busy"}
-                    {callStatus === "declined"    && "Call declined"}
-                  </span>
-                </div>
-
-                {/* Hang-Up Button */}
-                <button
-                  onClick={hangUp}
-                  className="
-                    w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8
-                    flex items-center justify-center
-                    bg-red-500 hover:bg-red-600
-                    rounded-full transition
-                    ml-1 sm:ml-2 md:ml-3
-                  "
-                  aria-label="Hang up"
-                >
-                  <Phone className="w-3 h-3 sm:w-4 md:w-4 text-white transform rotate-[135deg]" />
-                </button>
-
-                {(callStatus === "busy" || callStatus === "declined") && (
-                  <button
-                    onClick={() => startCall(agent.name)}
-                    className="
-                      ml-1 sm:ml-2 md:ml-3
-                      px-1 sm:px-2 md:px-3
-                      py-0.5
-                      bg-blue-500 hover:bg-blue-600
-                      text-white
-                      text-[10px] sm:text-xs md:text-sm
-                      rounded-full transition
-                    "
-                  >
-                    Try Again
-                  </button>
-                )}
+            {/* Avatar + Text (fixed to 2 lines max) */}
+            <div className="flex items-center space-x-3 flex-1 min-w-0 rounded-2xl">
+              <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                <Image
+                  src={agent.avatar}
+                  alt={agent.name}
+                  width={40}
+                  height={40}
+                  className="object-cover object-center"
+                />
               </div>
-            ) : (
-              // ─── Notification Card ─────────────────────────────
-              <>
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mr-1 sm:mr-2 md:mr-3">
-                    <Image
-                      src={agent.avatar}
-                      alt={`${agent.name} avatar`}
-                      width={50}
-                      height={50}
-                      className="rounded-full w-6 h-6 sm:w-8 sm:h-10 md:w-10 md:h-10 object-cover"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <span className="text-white text-[10px] sm:text-xs md:text-sm font-medium">
-                      {agent.name} – Talk to Our AI Agent
-                    </span>
-                    <p className="text-gray-300 text-[10px] sm:text-xs md:text-sm mt-0.5">
-                      Experience Live Demo Calls
-                    </p>
-                  </div>
-                </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-white font-medium text-sm opacity-90 truncate">
+                  {agent.name}
+                </p>
+                <p className="text-white text-xs opacity-60 truncate">
+                  {isActive
+                    ? status === "connecting"
+                      ? "Connecting..."
+                      : status === "ringing"
+                      ? "Ringing..."
+                      : status === "inCall"
+                      ? fmt(seconds)
+                      : status === "busy"
+                      ? "Agent busy"
+                      : "Call declined"
+                    : agent.subtitle}
+                </p>
+              </div>
+            </div>
 
+            {/* Action buttons */}
+            <div className="flex-shrink-0 flex items-center space-x-2">
+              {isActive ? (
+                <>
+                  <button
+                    onClick={hangUp}
+                    className="
+                      p-2 rounded-full bg-red-500
+                      hover:scale-105 hover:brightness-110
+                      transition
+                    "
+                    aria-label="Hang up"
+                  >
+                    <Phone className="w-5 h-5 text-white rotate-[135deg]" />
+                  </button>
+                  {(status === "busy" || status === "declined") && (
+                    <button
+                      onClick={() => startCall(agent.name)}
+                      className="
+                        px-3 py-1 text-xs bg-blue-500
+                        hover:scale-105 hover:brightness-110
+                        text-white rounded-full
+                        transition
+                      "
+                    >
+                      Retry
+                    </button>
+                  )}
+                </>
+              ) : (
                 <button
                   onClick={() => startCall(agent.name)}
-                  disabled={isDisabled}
-                  className={`
-                    w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8
-                    flex items-center justify-center
-                    bg-green-500 hover:bg-green-600
-                    rounded-full transition
-                    ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}
-                  `}
+                  disabled={disabled}
+                  className="
+                    p-2 rounded-full bg-green-500
+                    disabled:opacity-50
+                    hover:scale-105 hover:brightness-110
+                    transition
+                  "
                   aria-label={`Call ${agent.name}`}
                 >
-                  <Phone className="w-3 h-3 sm:w-4 md:w-4 text-white" />
+                  <Phone className="w-5 h-5 text-white" />
                 </button>
-              </>
-            )}
+              )}
+            </div>
           </div>
         );
       })}

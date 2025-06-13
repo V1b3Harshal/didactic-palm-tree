@@ -57,12 +57,12 @@ export default function Navigation() {
             <div className="w-8 h-8 rounded-md flex items-center justify-center">
               <img
                 src="/logo.png"
-                alt="Sampark AI Logo"
+                alt=" Convis AI Logo"
                 className="w-8 h-8"
               />
             </div>
             <span className="text-xl font-bold text-gray-900">
-              Sampark AI
+               Convis AI
             </span>
           </div>
 

@@ -68,7 +68,7 @@ export const ContactSection = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-800">Email</p>
-                    <p className="text-gray-600">hello@sampark.ai</p>
+                    <p className="text-gray-600">hello@ Convis.ai</p>
                   </div>
                 </div>
 

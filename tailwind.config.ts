@@ -19,6 +19,9 @@ export default {
       },
     },
     extend: {
+           fontFamily: {
+               sans: ['var(--font-sans)', 'sans-serif'],
+             },
       spacing: {
         '35': '10rem', // 35 * 0.25rem = 8.75rem
       },

@@ -11,14 +11,14 @@ export const Footer = () => {
               <div className="w-10 h-10 rounded-lg overflow-hidden shadow-lg">
                 <Image
                   src="/logo.png"
-                  alt="SAMPARK Logo"
+                  alt=" Convis Logo"
                   width={40}
                   height={40}
                   className="w-full h-full object-cover"
                 />
               </div>
               <span className="text-xl font-semibold">
-                SAMPARK<span className="text-blue-400">AI</span>
+                 Convis<span className="text-blue-400">AI</span>
               </span>
             </div>
             <p className="text-gray-400 text-sm">
@@ -103,7 +103,7 @@ export const Footer = () => {
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 SAMpark. All rights reserved.
+              © 2024  Convis. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

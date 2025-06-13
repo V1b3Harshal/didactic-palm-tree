@@ -1,3 +1,4 @@
+// components/BenefitsSection.tsx
 "use client"
 
 import { FlipWords } from "./flip-words"
@@ -39,7 +40,6 @@ export const BenefitsSection = () => {
     if (progressBarRef.current) {
       observer.observe(progressBarRef.current)
     }
-
     return () => observer.disconnect()
   }, [])
 
@@ -79,7 +79,10 @@ export const BenefitsSection = () => {
   ]
 
   return (
-    <section id="benefits" className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+    <section
+      id="benefits"
+      className="font-sans bg-gray-50 py-16 px-4 sm:px-6 lg:px-8"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -107,7 +110,6 @@ export const BenefitsSection = () => {
                 key={idx}
                 className="relative bg-white rounded-2xl shadow-md overflow-hidden flex flex-col items-center text-center p-5"
               >
-                {/* Lottie animation */}
                 <div className="w-24 h-24 sm:w-28 sm:h-28 mb-4">
                   <DotLottieReact
                     src={stat.lottieUrl}
@@ -117,7 +119,6 @@ export const BenefitsSection = () => {
                   />
                 </div>
 
-                {/* Fallback SVG icon */}
                 <div className={`absolute top-4 right-4 text-2xl ${stat.color} opacity-50`}>
                   <Icon className="w-6 h-6" />
                 </div>
@@ -163,9 +164,9 @@ export const BenefitsSection = () => {
                         className="progress-bar-fill h-full bg-gray-400 rounded-full"
                         data-width="100%"
                         style={{ width: "0%" }}
-                      ></div>
+                      />
                     </div>
-                    <div className="text-gray-500 text-sm mt-1">$20 per  call</div>
+                    <div className="text-gray-500 text-sm mt-1">$2 per call</div>
                     <ul className="text-gray-600 text-sm mt-2 space-y-1">
                       <li className="flex items-center">
                         <span className="text-red-500 mr-2">✗</span> High labor costs
@@ -179,10 +180,10 @@ export const BenefitsSection = () => {
                     </ul>
                   </div>
 
-                  {/* AI (Sampark) Bar */}
+                  {/* AI ( Convis) Bar */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-blue-600 font-medium">Sampark AI Agents</span>
+                      <span className="text-blue-600 font-medium"> Convis AI Agents</span>
                       <span className="px-2 py-0.5 text-xs font-bold text-white bg-blue-600 rounded-full">
                         RECOMMENDED
                       </span>
@@ -192,12 +193,14 @@ export const BenefitsSection = () => {
                         className="progress-bar-fill h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"
                         data-width="4%"
                         style={{ width: "0%" }}
-                      ></div>
+                      />
                     </div>
-                    <div className="text-blue-600 text-sm mt-1 font-semibold">$0.80 per  call</div>
+                    <div className="text-blue-600 text-sm mt-1 font-semibold">
+                      $0.20 per call
+                    </div>
                     <ul className="text-gray-600 text-sm mt-2 space-y-1">
                       <li className="flex items-center">
-                        <CheckCircle className="w-4 h-4 text-green-500 mr-2" /> 96% cost reduction
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2" /> 99% cost reduction
                       </li>
                       <li className="flex items-center">
                         <CheckCircle className="w-4 h-4 text-green-500 mr-2" /> 24/7 availability
@@ -212,7 +215,7 @@ export const BenefitsSection = () => {
 
               {/* Lottie Side */}
               <div className="lg:w-1/2 flex justify-center">
-                <div className="w-full max-w-md aspect-square bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div className="w-full max-w-md aspect-square bg-white rounded-2xl  overflow-hidden">
                   <DotLottieReact
                     src="https://lottie.host/819721c4-3b23-44d3-b895-f8ef2ab0be4b/egHKGwovHB.lottie"
                     loop
@@ -229,8 +232,7 @@ export const BenefitsSection = () => {
             <div className="flex flex-col lg:flex-row items-center gap-8">
               {/* Lottie Side */}
               <div className="lg:w-1/2 flex justify-center">
-                <div className="w-full max-w-md aspect-square bg-white rounded-2xl shadow-lg overflow-hidden">
-                  <DotLottieReact
+                <div className="w-full max-w-md aspect-square bg-white rounded-2xl  overflow-hidden">                  <DotLottieReact
                     src="https://lottie.host/2a3c3b70-0677-4c66-8e37-f209792c12dc/desN5ErhmR.lottie"
                     loop
                     autoplay
@@ -250,7 +252,7 @@ export const BenefitsSection = () => {
                       Massive Scalability
                     </h3>
                     <p className="text-gray-600 text-sm sm:text-base">
-                      Our AI agents can handle thousands of  calls simultaneously.
+                      Our AI agents can handle thousands of calls simultaneously.
                     </p>
                   </div>
                 </div>
@@ -259,7 +261,7 @@ export const BenefitsSection = () => {
                   <h4 className="text-xl font-semibold text-gray-800 mb-3">
                     Traditional vs. AI-Powered Capacity
                   </h4>
-
+                  
                   {/* Traditional Capacity */}
                   <div className="space-y-2">
                     <div className="text-gray-700 font-medium">Human Agents (Limited Capacity)</div>
@@ -268,11 +270,11 @@ export const BenefitsSection = () => {
                         className="progress-bar-fill h-full bg-gray-400 rounded-full"
                         data-width="20%"
                         style={{ width: "0%" }}
-                      ></div>
+                      />
                     </div>
-                    <div className="text-gray-500 text-sm mt-1">1 concurrent  call</div>
+                    <div className="text-gray-500 text-sm mt-1">1 concurrent call</div>
                     <p className="text-gray-600 text-sm mt-2">
-                      Human agents can only handle one  call at a time.
+                      Human agents can only handle one call at a time.
                     </p>
                   </div>
 
@@ -289,9 +291,9 @@ export const BenefitsSection = () => {
                         className="progress-bar-fill h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"
                         data-width="100%"
                         style={{ width: "0%" }}
-                      ></div>
+                      />
                     </div>
-                    <div className="text-gray-900 text-sm mt-1 font-semibold">1000+ concurrent  calls</div>
+                    <div className="text-gray-900 text-sm mt-1 font-semibold">1000+ concurrent calls</div>
                     <p className="text-gray-600 text-sm mt-2">
                       AI agents can handle thousands at once, eliminating bottlenecks.
                     </p>
@@ -315,7 +317,7 @@ export const BenefitsSection = () => {
                 Get instant insights into candidate responses with our advanced analytics dashboard.
               </p>
             </div>
-            <div className="mt-auto w-full max-w-sm aspect-square bg-white rounded-2xl shadow-lg overflow-hidden mx-auto">
+            <div className="mt-auto w-full max-w-sm aspect-square bg-white rounded-2xl overflow-hidden mx-auto">
               <DotLottieReact
                 src="https://lottie.host/4e00d4dd-b38a-489e-8e60-9725cf55025c/Xih5LshMWs.lottie"
                 loop
@@ -333,10 +335,10 @@ export const BenefitsSection = () => {
             <div>
               <h3 className="text-lg font-bold text-gray-900 mb-1">Customizable Workflows</h3>
               <p className="text-gray-600 text-sm">
-                Tailor the  call process to your exact requirements with our flexible configuration options.
+                Tailor the call process to your exact requirements with our flexible configuration options.
               </p>
             </div>
-            <div className="mt-auto w-full max-w-sm aspect-square bg-white rounded-2xl shadow-lg overflow-hidden mx-auto">
+            <div className="mt-auto w-full max-w-sm aspect-square bg-white rounded-2xl overflow-hidden mx-auto">
               <DotLottieReact
                 src="https://lottie.host/b2426145-0d5a-46b9-af9c-3252518a23c5/krjyw4f0me.lottie"
                 loop
@@ -357,7 +359,7 @@ export const BenefitsSection = () => {
                 Our AI agents engage candidates with human-like conversations for a better experience.
               </p>
             </div>
-            <div className="mt-auto w-full max-w-sm aspect-square bg-white rounded-2xl shadow-lg overflow-hidden mx-auto">
+            <div className="mt-auto w-full max-w-sm aspect-square bg-white rounded-2xl overflow-hidden mx-auto">
               <DotLottieReact
                 src="https://lottie.host/562cb3ee-66eb-4c48-b816-9212c2ce55ce/onhYbKihVx.lottie"
                 loop

@@ -11,7 +11,7 @@ export const AboutSection = () => {
               letterSpacing: '0.05em'
             }}
           >
-            SAMPARK AI
+             Convis AI
           </span>
         </div>
       </div>
@@ -25,7 +25,7 @@ export const AboutSection = () => {
         <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed relative">
           We are{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 font-semibold">
-            SAMPARK AI
+             Convis AI
           </span>
           , a leading AI Automation Agency dedicated to transforming businesses with cutting-edge technology and
           innovative solutions. Our team is committed to driving efficiency and growth for your business through

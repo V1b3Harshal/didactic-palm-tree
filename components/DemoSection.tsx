@@ -1,3 +1,4 @@
+// components/DemoSection.tsx
 "use client"
 
 import { Play, Pause, Volume2, VolumeX, RotateCcw, FastForward } from "lucide-react"
@@ -57,21 +58,22 @@ export const DemoSection = () => {
 
   return (
     <section
-    id="demo"
-    className="
-      relative 
-      z-20                         /* sit above the phone */
-      -mt-8 md:-mt-10            /* pull it up 8rem on mobile, 12rem on md+ */
-      neumorphic-inset shadow-neumorphic-inset
-      pb-32
-      bg-gradient-to-b from-[#E4E4E4] to-[#FFFFFF] rounded-3xl
-    "
-  >
+      id="demo"
+      className="
+        font-sans
+        relative
+        z-20                         /* sit above the phone */
+        -mt-8 md:-mt-10              /* pull it up 8rem on mobile, 12rem on md+ */
+        neumorphic-inset shadow-neumorphic-inset
+        pb-32
+        bg-gradient-to-b from-[#E4E4E4] to-[#FFFFFF]
+        rounded-3xl
+      "
+    >
       <div className="max-w-6xl mx-auto px-6">
         <div className="rounded-3xl p-8 md:p-12 lg:p-16">
           {/* Section Header */}
           <div className="text-center">
-            
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
               Experience Our{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-600">
@@ -102,6 +104,7 @@ export const DemoSection = () => {
     </section>
   )
 }
+
 function AgentCard({
   agent,
   isPlaying,
@@ -163,7 +166,6 @@ function AgentCard({
   const handleMainButton = async () => {
     const audio = audioRef.current
 
-    // Guard: if no valid audio URL, do nothing
     if (!audio || !agent.audioUrl) {
       console.warn(
         `Cannot play "${agent.name}" because no valid audioUrl was provided.`
@@ -171,18 +173,16 @@ function AgentCard({
       return
     }
 
-    // If not playing yet, start playback
     if (!isPlaying) {
       try {
         await audio.play()
         setPlayingAgent(agent.id)
-      } catch (err) {
+      } catch {
         console.warn(
-          `Failed to play audio for "${agent.name}". Check that "${agent.audioUrl}" is valid.`
+          `Failed to play audio for "${agent.name}". Check the URL.`
         )
       }
     } else {
-      // If already playing, pause & reset
       audio.pause()
       audio.currentTime = 0
       setPlayingAgent(null)
@@ -198,48 +198,41 @@ function AgentCard({
     setPlayingAgent(null)
   }
 
-  // Rewind 10 seconds
+  // Rewind / Forward / Mute
   const handleRewind = () => {
     const audio = audioRef.current
     if (!audio) return
-    audio.currentTime = Math.max((audio.currentTime || 0) - 10, 0)
+    audio.currentTime = Math.max(audio.currentTime - 10, 0)
   }
-
-  // Forward 10 seconds
   const handleForward = () => {
     const audio = audioRef.current
     if (!audio || !duration) return
-    audio.currentTime = Math.min((audio.currentTime || 0) + 10, duration)
+    audio.currentTime = Math.min(audio.currentTime + 10, duration)
   }
+  const toggleMute = () => setMuted((m) => !m)
 
-  // Toggle mute/unmute
-  const toggleMute = () => {
-    setMuted((prev) => !prev)
-  }
-
-  // Compute playback percentage for progress bar
   const progressPercent =
     duration > 0 ? (currentTime / duration) * 100 : 0
 
-      return (
-         <div className="flex flex-col bg-white rounded-[24px] overflow-hidden w-full max-w-sm min-h-[400px] shadow-md">
-         {/* 1) Lottie animation at the top: keep a fixed aspect ratio instead of a fixed height */}
-         <div className="w-full aspect-video ">
-           <DotLottieReact
-             src={agent.lottieUrl}
-            loop
-             autoplay
-              speed={0.5}
-            className="w-full h-full"
-            />
-       </div>
+  return (
+    <div className="flex flex-col bg-white rounded-[24px] overflow-hidden w-full max-w-sm min-h-[400px] shadow-md">
+      {/* 1) Lottie animation */}
+      <div className="w-full aspect-video">
+        <DotLottieReact
+          src={agent.lottieUrl}
+          loop
+          autoplay
+          speed={0.5}
+          className="w-full h-full"
+        />
+      </div>
 
       {/* Hidden audio element */}
-      {agent.audioUrl ? (
+      {agent.audioUrl && (
         <audio ref={audioRef} src={agent.audioUrl} preload="metadata" />
-      ) : null}
+      )}
 
-      {/* 2) Header: Agent name + role on left, small Play button on right */}
+      {/* 2) Header */}
       <div className="px-7 pt-6 pb-8 flex items-center justify-between">
         <div>
           <h3 className="text-2xl font-bold text-gray-800 mb-1">{agent.name}</h3>
@@ -260,7 +253,7 @@ function AgentCard({
               duration-200
               flex items-center justify-center
             `}
-            aria-label={agent.audioUrl ? `Play ${agent.name}` : `No audio available`}
+            aria-label={agent.audioUrl ? `Play ${agent.name}` : `No audio`}
             disabled={!agent.audioUrl}
           >
             <Play className="w-5 h-5" />
@@ -268,7 +261,7 @@ function AgentCard({
         )}
       </div>
 
-      {/* 3) Middle/Bottom: description (if not playing) or audio controls (if playing). */}
+      {/* 3) Description or Controls */}
       <div className="flex flex-col flex-grow px-4 pb-6">
         {!isPlaying ? (
           <div className="flex-grow flex items-center justify-center">
@@ -303,7 +296,7 @@ type AudioControlsProps = {
   currentTime: number
   duration: number
   progressPercent: number
-  agentColor: string            // Tailwind gradient classes
+  agentColor: string
   formatTime: (sec: number) => string
   handleStop: () => void
   handleRewind: () => void
@@ -325,21 +318,16 @@ function AudioControls({
   toggleMute,
   muted,
 }: AudioControlsProps) {
-  // When user clicks on the bar, calculate new time
   const handleSeek = (e: MouseEvent<HTMLDivElement>) => {
     if (!audioRef.current || !duration) return
-    const bar = e.currentTarget
-    const rect = bar.getBoundingClientRect()
+    const rect = e.currentTarget.getBoundingClientRect()
     const clickX = e.clientX - rect.left
-    const newTime = (clickX / rect.width) * duration
-    audioRef.current.currentTime = newTime
+    audioRef.current.currentTime = (clickX / rect.width) * duration
   }
 
   return (
     <div className="w-full">
-      {/* Control buttons row */}
       <div className="flex items-center justify-between mb-4">
-        {/* Stop Button */}
         <button
           onClick={handleStop}
           className="
@@ -354,7 +342,6 @@ function AudioControls({
           <Pause className="w-5 h-5 text-gray-600" />
         </button>
 
-        {/* Rewind / Forward / Mute */}
         <div className="flex items-center space-x-3">
           <button
             onClick={handleRewind}
@@ -402,7 +389,6 @@ function AudioControls({
         </div>
       </div>
 
-      {/* Progress bar + timestamps */}
       <div className="flex items-center space-x-2 text-xs text-gray-500">
         <span>{formatTime(currentTime)}</span>
         <div

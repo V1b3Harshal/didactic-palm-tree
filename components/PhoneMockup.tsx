@@ -54,7 +54,7 @@ const PhoneMockup: React.FC = () => {
       style={{ perspective: "1000px" }}
       className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg aspect-[433/882]"
     >
-      <div style={phoneStyle} className="absolute inset-0">
+      <div style={phoneStyle} className="absolute inset-0 font-sans">
         {/* DARK BACKING */}
         <div
           className="absolute inset-[10px] rounded-[12%] pointer-events-none"
@@ -94,9 +94,7 @@ const PhoneMockup: React.FC = () => {
           className="
             absolute
             top-[5%]
-            inset-x-8
-            sm:inset-x-6
-            md:inset-x-10
+            inset-x-8 sm:inset-x-6 md:inset-x-10
             flex justify-between items-center
             z-10
           "
@@ -159,35 +157,33 @@ const PhoneMockup: React.FC = () => {
           </button>
         </div>
 
-        {/* ─── ③ Notification Cards (lifted above the SVG frame) ─────────────── */}
+        {/* Notification Cards (lifted above the SVG frame) */}
         <div
           style={{
-            ...contentStyle,         // apply our 3D lift
-            pointerEvents: "none",   // but don’t catch any taps here
+            ...contentStyle,
+            pointerEvents: "none",
           }}
           className="
-                     absolute inset-0
-                     flex flex-col items-center
-                     pt-[200px]      /* 200px top on mobile */
-                     sm:pt-[260px]   /* back to 260px on sm+ */
-                     px-[30px]
-                     z-[999]
-                     pointer-events-none
-                   "
-                  >   
-                   <div
-                     className="
-                       w-full
-                       pointer-events-auto
-                       origin-top
-                       text-sm        /* smaller text on mobile */
-                       sm:text-base   /* normal text at sm+ */
-                       space-y-2      /* a bit less vertical gap */
-                     "
-                    style={{ zIndex: 1 }}
-                   >
-           <CallPanel />
-         </div>
+            absolute inset-0
+            flex flex-col items-center
+            pt-[200px] sm:pt-[260px]
+            px-[20px] sm:px-[15px] lg:px-[25px]
+            z-[999]
+            rounded-2xl
+          "
+        >
+          <div
+            className="
+              w-full
+              pointer-events-auto
+              origin-top
+              text-sm sm:text-base
+              space-y-2 
+            "
+            style={{ zIndex: 1 }}
+          >
+            <CallPanel />
+          </div>
         </div>
 
         {/* IPHONE FRAME (non-interactive) */}
