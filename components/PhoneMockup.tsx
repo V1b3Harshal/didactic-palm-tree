@@ -1,57 +1,61 @@
 // components/PhoneMockup.tsx
-"use client";
+'use client'
 
-import React, { useState, useEffect } from "react";
-import { SignalHigh, Wifi, Battery, X } from "lucide-react";
-import Image from "next/image";
-import CallPanel from "./call";
+import React, { useState, useEffect } from 'react'
+import { SignalHigh, Wifi, Battery, X } from 'lucide-react'
+import Image from 'next/image'
+import CallPanel from './call'
 
 const PhoneMockup: React.FC = () => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false)
 
   // 3D transforms for the phone body
   const phoneStyle: React.CSSProperties = {
-    transform: isHovered ? "rotateX(20deg)" : "none",
-    transformStyle: "preserve-3d",
-    WebkitTransformStyle: "preserve-3d",
-    transition: "transform 0.7s",
-  };
+    willChange: 'transform',               // ← hint browser to optimize
+    transform: isHovered ? 'rotateX(20deg)' : 'none',
+    transformStyle: 'preserve-3d',
+    WebkitTransformStyle: 'preserve-3d',
+    transition: 'transform 0.7s',
+  }
 
   // 3D transforms for the inner content ("cards")
   const contentStyle: React.CSSProperties = {
-    transform: isHovered ? "translateZ(70px) rotateX(-20deg)" : "none",
-    transformStyle: "preserve-3d",
-    WebkitTransformStyle: "preserve-3d",
-    backfaceVisibility: "hidden",
-    WebkitBackfaceVisibility: "hidden",
-    transition: "transform 0.7s",
-  };
+    willChange: 'transform',               // ← hint browser to optimize
+    transform: isHovered
+      ? 'translateZ(70px) rotateX(-20deg)'
+      : 'none',
+    transformStyle: 'preserve-3d',
+    WebkitTransformStyle: 'preserve-3d',
+    backfaceVisibility: 'hidden',
+    WebkitBackfaceVisibility: 'hidden',
+    transition: 'transform 0.7s',
+  }
 
   // Compute date & time once on mount
-  const [dateString, setDateString] = useState("");
-  const [timeString, setTimeString] = useState("");
+  const [dateString, setDateString] = useState('')
+  const [timeString, setTimeString] = useState('')
   useEffect(() => {
-    const now = new Date();
+    const now = new Date()
     setDateString(
-      now.toLocaleDateString("en-US", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
+      now.toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
       })
-    );
+    )
     setTimeString(
-      now.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
+      now.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
       })
-    );
-  }, []);
+    )
+  }, [])
 
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ perspective: "1000px" }}
+      style={{ perspective: '1000px' }}
       className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg aspect-[433/882]"
     >
       <div style={phoneStyle} className="absolute inset-0 font-sans">
@@ -59,19 +63,19 @@ const PhoneMockup: React.FC = () => {
         <div
           className="absolute inset-[10px] rounded-[12%] pointer-events-none"
           style={{
-            backgroundColor: "black",
-            transform: "translateZ(-1px)",
-            transformStyle: "preserve-3d",
-            WebkitTransformStyle: "preserve-3d",
+            backgroundColor: 'black',
+            transform: 'translateZ(-1px)',
+            transformStyle: 'preserve-3d',
+            WebkitTransformStyle: 'preserve-3d',
           }}
         />
 
-        {/* WALLPAPER (never catches taps) */}
+        {/* WALLPAPER */}
         <div
           className="absolute inset-[10px] overflow-hidden rounded-[12%] pointer-events-none"
           style={{
-            transformStyle: "preserve-3d",
-            WebkitTransformStyle: "preserve-3d",
+            transformStyle: 'preserve-3d',
+            WebkitTransformStyle: 'preserve-3d',
           }}
         >
           <Image
@@ -86,10 +90,10 @@ const PhoneMockup: React.FC = () => {
         {/* STATUS BAR */}
         <div
           style={{
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden",
-            transformStyle: "preserve-3d",
-            WebkitTransformStyle: "preserve-3d",
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            transformStyle: 'preserve-3d',
+            WebkitTransformStyle: 'preserve-3d',
           }}
           className="
             absolute
@@ -112,8 +116,8 @@ const PhoneMockup: React.FC = () => {
         {/* BIG DATE & TIME */}
         <div
           style={{
-            transformStyle: "preserve-3d",
-            WebkitTransformStyle: "preserve-3d",
+            transformStyle: 'preserve-3d',
+            WebkitTransformStyle: 'preserve-3d',
           }}
           className="absolute top-[16%] sm:top-[18%] lg:top-[12%] w-full flex flex-col items-center"
         >
@@ -128,8 +132,8 @@ const PhoneMockup: React.FC = () => {
         {/* “Notifications” HEADER */}
         <div
           style={{
-            transformStyle: "preserve-3d",
-            WebkitTransformStyle: "preserve-3d",
+            transformStyle: 'preserve-3d',
+            WebkitTransformStyle: 'preserve-3d',
           }}
           className="
             absolute
@@ -149,19 +153,19 @@ const PhoneMockup: React.FC = () => {
               transition hover:bg-white/30
             "
             style={{
-              backfaceVisibility: "hidden",
-              WebkitBackfaceVisibility: "hidden",
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
             }}
           >
             <X className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
           </button>
         </div>
 
-        {/* Notification Cards (lifted above the SVG frame) */}
+        {/* Notification Cards */}
         <div
           style={{
             ...contentStyle,
-            pointerEvents: "none",
+            pointerEvents: 'none',
           }}
           className="
             absolute inset-0
@@ -186,12 +190,12 @@ const PhoneMockup: React.FC = () => {
           </div>
         </div>
 
-        {/* IPHONE FRAME (non-interactive) */}
+        {/* IPHONE FRAME */}
         <div
           className="absolute inset-0 z-30 pointer-events-none"
           style={{
-            transformStyle: "preserve-3d",
-            WebkitTransformStyle: "preserve-3d",
+            transformStyle: 'preserve-3d',
+            WebkitTransformStyle: 'preserve-3d',
           }}
         >
           <Image
@@ -204,7 +208,8 @@ const PhoneMockup: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PhoneMockup;
+// Wrap in React.memo to skip needless re-renders
+export default React.memo(PhoneMockup)

@@ -165,7 +165,7 @@ export const ContactSection = () => {
 
               <button
                 type="submit"
-                className="w-full neumorphic-button-primary px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 hover:shadow-neumorphic-pressed active:shadow-neumorphic-inset flex items-center justify-center space-x-2"
+                className="w-full neumorphic-button-primary px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2"
               >
                 <Send className="w-5 h-5" />
                 <span>Send Message</span>
