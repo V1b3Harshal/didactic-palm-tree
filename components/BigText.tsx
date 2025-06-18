@@ -12,7 +12,7 @@ export const BigText: React.FC = () => {
         opacity-100
       "
     >
-      CONVIS
+      CONVIS AI
     </span>
   );
 };

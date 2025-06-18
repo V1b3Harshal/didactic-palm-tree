@@ -18,7 +18,7 @@ export default function Navigation() {
       {/* ─────── NAVBAR WRAPPER ─────── */}
       <div className="relative">
         {/* Glass BG always on */}
-        <div className="absolute inset-0 bg-white/50 backdrop-blur-lg" />
+        <div className="absolute inset-0 bg-white shadow-md backdrop-blur-lg" />
 
         {/* CONTENT LAYER */}
         <div className="relative z-10 flex items-center justify-between px-6 py-4">

@@ -105,7 +105,7 @@ export function FeaturesSection() {
   return (
     <section
       id="features"
-      className="relative pt-16 pb-32 rounded-3xl "
+      className="relative pt-1 pb-32 rounded-3xl "
     >
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-white via-indigo-50 to-pink-50 z-0 rounded-3xl" />
