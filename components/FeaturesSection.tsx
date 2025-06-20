@@ -105,7 +105,7 @@ export function FeaturesSection() {
   return (
     <section
       id="features"
-      className="relative pt-1 pb-32 rounded-3xl "
+      className="relative pb-10 pt-20 sm:pt-20 md:pt-10 lg:pt-5 rounded-3xl "
     >
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-white via-indigo-50 to-pink-50 z-0 rounded-3xl" />
@@ -119,12 +119,10 @@ export function FeaturesSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Section Header */}
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 shadow-lg px-6 py-3 rounded-2xl bg-white text-sm font-medium text-blue-600 mb-4 border border-blue-100">
-            <Sparkles className="w-4 h-4" />
-            Core Features
-          </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
+        <div className="text-center pt-5">
+         
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-raleway
+                font-light text-gray-800 mb-4">
             Everything you need to{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
               automate customer service
@@ -220,7 +218,7 @@ export function FeaturesSection() {
                       <feature.icon className="w-7 h-7" />
                     </div>
                     <div className="flex-1">
-                      <h3 className={`text-2xl font-bold ${feature.accent} mb-1`}>
+                      <h3 className={`text-2xl font-raleway font-normal ${feature.accent} mb-1`}>
                         {feature.title}
                       </h3>
                       {/* Small stats for smaller cards */}

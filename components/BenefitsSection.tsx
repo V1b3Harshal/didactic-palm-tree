@@ -81,22 +81,20 @@ export const BenefitsSection: React.FC = React.memo(() => {
   return (
     <section
       id="benefits"
-      className="font-sans bg-gray-50 py-16 px-4 sm:px-6 lg:px-8"
+      className="font-sans pt-10 bg-gray-50 py-16 px-4 sm:px-6 lg:px-8"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center bg-white shadow-md px-4 py-2 rounded-full text-purple-600 text-sm font-semibold mb-4">
-            <Zap className="w-4 h-4 mr-1" />
-            ROI-FOCUSED BENEFITS
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
+         
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-raleway             /* Raleway ExtraLight 200 */
+                font-light text-gray-900 mb-3">
             Transform Your Business with{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
               AI Voice Agents
             </span>
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className=" font-jakarta text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
             See how our AI solutions deliver measurable impact across your entire
             organization
           </p>
@@ -241,7 +239,8 @@ export const BenefitsSection: React.FC = React.memo(() => {
                     <Infinity className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                    <h3 className=" font-raleway             /* Raleway ExtraLight 200 */
+                font-light text-2xl sm:text-3xl  text-gray-900">
                       Massive Scalability
                     </h3>
                     <p className="text-gray-600 text-sm sm:text-base">
@@ -251,7 +250,7 @@ export const BenefitsSection: React.FC = React.memo(() => {
                 </div>
 
                 <div className="mt-8 space-y-6">
-                  <h4 className="text-xl font-semibold text-gray-800 mb-3">
+                  <h4 className="font-raleway font-normal text-xl  text-gray-800 mb-3">
                     Traditional vs. AI-Powered Capacity
                   </h4>
                   
@@ -305,7 +304,7 @@ export const BenefitsSection: React.FC = React.memo(() => {
               <BarChart2 className="w-6 h-6 text-purple-600" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">Real-time Analytics</h3>
+              <h3 className=" text-lg font-raleway font-normal text-gray-900 mb-1">Real-time Analytics</h3>
               <p className="text-gray-600 text-sm">
                 Get instant insights into candidate responses with our advanced analytics dashboard.
               </p>
@@ -326,7 +325,7 @@ export const BenefitsSection: React.FC = React.memo(() => {
               <Settings className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">Customizable Workflows</h3>
+              <h3 className="text-lg font-raleway font-normal text-gray-900 mb-1">Customizable Workflows</h3>
               <p className="text-gray-600 text-sm">
                 Tailor the call process to your exact requirements with our flexible configuration options.
               </p>
@@ -347,7 +346,7 @@ export const BenefitsSection: React.FC = React.memo(() => {
               <MessageCircle className="w-6 h-6 text-green-600" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">Natural Conversations</h3>
+              <h3 className="text-lg font-raleway font-normal text-gray-900 mb-1">Natural Conversations</h3>
               <p className="text-gray-600 text-sm">
                 Our AI agents engage candidates with human-like conversations for a better experience.
               </p>

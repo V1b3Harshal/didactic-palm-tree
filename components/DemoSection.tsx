@@ -58,52 +58,48 @@ export const DemoSection = () => {
 
   return (
     <section
-      id="demo"
-      className="
-        font-sans
-        relative
-        z-20                         /* sit above the phone */
-        -mt-8 md:-mt-10              /* pull it up 8rem on mobile, 12rem on md+ */
-        neumorphic-inset shadow-neumorphic-inset
-        pb-32
-        bg-gradient-to-b from-[#E4E4E4] to-[#FFFFFF]
-        rounded-3xl
-      "
-    >
+         id="demo"
+         className="
+           font-jakarta
+           relative z-20
+         overflow-visible
+          /* pull up on sm/md/lg */
+           sm:-top-8      /* 2rem up at ≥640px */
+           md:-top-12     /* 3rem up at ≥768px */
+           lg:-top-20     /* 5rem up at ≥1024px */
+           neumorphic-inset shadow-neumorphic-inset
+            bg-gradient-to-br from-white via-indigo-50 to-pink-50 rounded-3xl
+          -mb-16            sm:-mb-20      
+   md:-mb-24      
+        "
+       >
       <div className="max-w-6xl mx-auto px-6">
-      <div className="rounded-3xl p-6 md:p-12 lg:p-16">
+        <div className="rounded-3xl p-6 md:p-12 lg:p-16">
           {/* Section Header */}
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+            <h2
+              className="
+                font-raleway             /* Raleway ExtraLight 200 */
+                font-light
+                text-3xl md:text-4xl lg:text-5xl
+                text-gray-800 mb-6
+              "
+            >
               Experience Our{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-600">
                 AI Voice Agents
               </span>{" "}
               in Action
             </h2>
-            <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto mb-12">
+            <p className="font-jakarta text-lg md:text-xl text-gray-600 max-w-4xl mx-auto mb-12">
               Listen to real conversations powered by our intelligent voice agents,
               each specialized for different recruitment scenarios and delivering
               human‐like interactions.
             </p>
           </div>
 
-          {/* Demo Cards Grid */}
-          <div
-            className="
-              grid
-              grid-cols-1        /* make each card span full width on mobile */
-              sm:grid-cols-2      /* 2 columns from ≥640px */
-              lg:grid-cols-3      /* 3 columns from ≥1024px */
-              gap-8
-              bg-gradient-to-b from-[#DFDBFE] to-[#EBD7FC]
-              pt-5 pb-5
-              px-4                /* 1rem (16px) padding on mobile */
-              sm:px-6            /* bump to 1.5rem (24px) on sm+ */
-              md:px-8            /* 2rem (32px) on md+ */
-              rounded-3xl
-            "
-          >
+         {/* Demo Cards Grid */}
+         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8  pt-5 px-4 sm:px-6 md:px-8 rounded-3xl">
             {demoAgents.map((agent) => (
               <AgentCard
                 key={agent.id}
@@ -248,32 +244,27 @@ function AgentCard({
 
       {/* 2) Header */}
       <div className="px-7 pt-6 pb-8 flex items-center justify-between">
-        <div>
-          <h3 className="text-2xl font-bold text-gray-800 mb-1">{agent.name}</h3>
-          <p className="text-sm text-gray-500">{agent.role}</p>
-        </div>
-
-        {!isPlaying && (
-          <button
-            onClick={handleMainButton}
-            className={`
-              bg-gradient-to-r from-purple-500 to-blue-500
-              hover:shadow-neumorphic-inset
-              text-white
-              p-3
-              rounded-full
-              shadow-lg
-              transition-all
-              duration-200
-              flex items-center justify-center
-            `}
-            aria-label={agent.audioUrl ? `Play ${agent.name}` : `No audio`}
-            disabled={!agent.audioUrl}
-          >
-            <Play className="w-5 h-5" />
-          </button>
-        )}
-      </div>
+  <div>
+    {/* Name in Raleway SemiBold (600) */}
+    <h3 className="font-raleway font-normal  text-2xl text-gray-800 mb-1">
+      {agent.name}
+    </h3>
+    {/* Role in Raleway Light (300/400) */}
+    <p className="font-raleway font-regular text-sm text-gray-500">
+      {agent.role}
+    </p>
+  </div>
+  {!isPlaying && (
+    <button
+      onClick={handleMainButton}
+      className="bg-gradient-to-r from-purple-500 to-blue-500 hover:shadow-neumorphic-inset text-white p-3 rounded-full shadow-lg transition-all duration-200 flex items-center justify-center"
+      aria-label={agent.audioUrl ? `Play ${agent.name}` : `No audio`}
+      disabled={!agent.audioUrl}
+    >
+      <Play className="w-5 h-5" />
+    </button>
+  )}
+</div>
 
       {/* 3) Description or Controls */}
       <div className="flex flex-col flex-grow px-4 pb-6">

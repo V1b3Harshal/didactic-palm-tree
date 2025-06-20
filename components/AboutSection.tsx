@@ -18,10 +18,8 @@ export const AboutSection = () => {
 
       {/* Content container with relative positioning */}
       <div className="max-w-4xl mx-auto text-center relative z-10">
-        <div className="inline-block neumorphic-card px-6 py-3 rounded-2xl text-blue-600 text-sm font-medium mb-6">
-          About
-        </div>
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-8">Who We Are</h2>
+      
+        <h2 className="text-4xl md:text-5xl font-raleway text-gray-800 mb-8">Who We Are</h2>
         <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed relative">
           We are{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 font-semibold">

@@ -1,18 +1,19 @@
 // app/layout.tsx  (Server Component — no "use client")
 import type { Metadata } from 'next'
-import { Plus_Jakarta_Sans, Space_Grotesk } from 'next/font/google'
+import { Plus_Jakarta_Sans, Raleway } from 'next/font/google'
 import './globals.css'
 import ClientLenisProvider from '@/components/ClientLenisProvider'
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['300','400','500','600','700','800'],
+  weight: ['300','400','500','600','700','800'],  // keep all body weights
   variable: '--font-sans',
+  display: 'swap',
 })
 
-const space = Space_Grotesk({
+const raleway = Raleway({
   subsets: ['latin'],
-  weight: ['300','400','500','600','700'],
+  weight: ['200','300','400','600','700'],     // ← only ExtraLight
   variable: '--font-heading',
   display: 'swap',
 })
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${space.variable}`}>
+    <html lang="en" className={`${jakarta.variable} ${raleway.variable}`}>
       <body>
         <ClientLenisProvider>
           {children}

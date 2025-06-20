@@ -1,7 +1,9 @@
 // pages/index.tsx
 'use client'
 
+import { useState, useEffect } from 'react'
 import Navigation from '@/components/Navigation'
+import Preloader from '@/components/Preloader'
 import { Hero } from '@/components/Hero'
 import { DemoSection } from '@/components/DemoSection'
 import { AboutSection } from '@/components/AboutSection'
@@ -11,41 +13,65 @@ import { ContactSection } from '@/components/ContactSection'
 import { Footer } from '@/components/Footer'
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true)
+  const [showContent, setShowContent] = useState(false)
+
+  const handlePreloadComplete = () => {
+    setIsLoading(false)
+    // small delay to let preloader fade-out
+    setTimeout(() => {
+      setShowContent(true)
+    }, 100)
+  }
+
+  useEffect(() => {
+    // enforce a minimum 3s loading time in case preload finishes too fast
+    const minLoad = setTimeout(() => {
+      if (isLoading) handlePreloadComplete()
+    }, 3000)
+
+    return () => clearTimeout(minLoad)
+  }, [isLoading])
+
   return (
     <>
-      <Navigation />
+      {/* 1) Show the preloader until it calls onComplete */}
+      {isLoading && <Preloader onComplete={handlePreloadComplete} />}
 
-      {/* Hero */}
-      <section className="hero-section">
-        <Hero />
-      </section>
+      {/* 2) Your real page content, fading in */}
+      <div
+        className={`transition-opacity duration-1000 ${
+          showContent ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <Navigation />
 
-      {/* Demo Section */}
-      <section className="demo-section">
-        <DemoSection />
-      </section>
+        <section className="hero-section">
+          <Hero />
+        </section>
 
-      {/* Features Section */}
-      <section className="features-section">
-        <FeaturesSection />
-      </section>
+        <section className="demo-section">
+          <DemoSection />
+        </section>
 
-      {/* Benefits Section */}
-      <section className="benefits-section">
-        <BenefitsSection />
-      </section>
+        <section className="features-section">
+          <FeaturesSection />
+        </section>
 
-      {/* About Section */}
-      <section className="about-section">
-        <AboutSection />
-      </section>
+        <section className="benefits-section">
+          <BenefitsSection />
+        </section>
 
-      {/* Contact Section */}
-      <section className="contact-section">
-        <ContactSection />
-      </section>
+        <section className="about-section">
+          <AboutSection />
+        </section>
 
-      <Footer />
+        <section className="contact-section">
+          <ContactSection />
+        </section>
+
+        <Footer />
+      </div>
     </>
   )
 }
