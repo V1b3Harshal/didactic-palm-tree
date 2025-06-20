@@ -24,7 +24,7 @@ export async function sendEmail(
 ) {
   return transporter.sendMail({
     // <-- from is baked in here
-    from: `"Connect API" <${process.env.SMTP_USER}>`,
+    from: `"CONVIS LABS" <${process.env.SMTP_USER}>`,
     to,
     subject,
     html,
