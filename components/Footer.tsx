@@ -10,7 +10,7 @@ export const Footer = () => {
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-10 h-10 rounded-lg overflow-hidden shadow-lg">
                 <Image
-                  src="/logo.png"
+                  src="/logo.svg"
                   alt=" Convis Logo"
                   width={40}
                   height={40}
