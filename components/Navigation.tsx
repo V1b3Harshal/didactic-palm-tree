@@ -2,6 +2,13 @@
 
 import { useState } from "react"
 import { Menu, X } from "lucide-react"
+import localFont from "next/font/local"
+
+// Load your local FibraLight font
+const fibra = localFont({
+  src: "../assets/fonts/FibraLight.otf",
+  display: "swap",
+})
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -15,19 +22,15 @@ export default function Navigation() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
-      {/* ─────── NAVBAR WRAPPER ─────── */}
       <div className="relative">
-        {/* Glass BG always on */}
         <div className="absolute inset-0 bg-white shadow-md backdrop-blur-lg" />
 
-        {/* CONTENT LAYER */}
         <div className="relative z-10 flex items-center justify-between px-6 py-4">
           {/* Logo Section */}
           <div className="flex items-center space-x-2">
-          <div className="flex items-center justify-center">
-              <img src="/logo.svg" alt="Convis AI Logo"  className="w-32 h-auto" />
+            <div className={`${fibra.className} text-2xl text-gray-800`}>
+              CONVIS AI
             </div>
-           
           </div>
 
           {/* Desktop Links + Button */}
@@ -61,13 +64,10 @@ export default function Navigation() {
         </div>
       </div>
 
-      {/* ─────── MOBILE DROPDOWN ─────── */}
+      {/* MOBILE DROPDOWN */}
       {isMenuOpen && (
         <div className="relative">
-          {/* Glassy backdrop for dropdown */}
           <div className="absolute inset-0 bg-white/60 backdrop-blur-lg border-b border-white/30 shadow-lg" />
-
-          {/* Dropdown Links */}
           <div className="relative z-10 px-6 py-4 flex flex-col space-y-3">
             {navItems.map((item) => (
               <a

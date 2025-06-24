@@ -145,15 +145,15 @@ const PhoneMockup: React.FC<PhoneMockupProps> = ({ onClose }) => {
                   onSubmit={handleSubmit}
                   className="space-y-4 sm:space-y-6"
                 >
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-white text-center">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-raleway text-white text-center">
                     Try a Demo Call
                   </h2>
-                  <p className="text-xs sm:text-sm md:text-base text-white text-center opacity-75">
+                  <p className="font-raleway text-xs sm:text-sm md:text-base text-white text-center opacity-75">
                     Enter your number below and hear our AI voice agent ring.
                   </p>
 
                   <div className="w-full mb-3 sm:mb-4">
-                    <div className="flex items-stretch w-full bg-white bg-opacity-10 backdrop-blur border border-white/25 rounded-2xl overflow-hidden focus-within:border-white transition">
+                    <div className="flex items-center w-full bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-blue-400 transition">
                       <input
                         type="tel"
                         name="countryCode"
@@ -163,9 +163,9 @@ const PhoneMockup: React.FC<PhoneMockupProps> = ({ onClose }) => {
                         required
                         pattern="^\+[1-9]\d{0,2}$"
                         title="1–3 digits, starting with +"
-                        className="w-14 sm:w-16 flex-shrink-0 text-sm sm:text-base text-white text-center bg-transparent py-2 sm:py-3 px-2 placeholder-white/75 focus:outline-none"
+                        className="w-16 text-gray-900 text-center bg-transparent py-2 px-3 placeholder-gray-400 focus:outline-none"
                       />
-                      <div className="w-px bg-white/25" />
+                      <div className="w-px h-6 bg-gray-200" />
                       <input
                         type="tel"
                         name="phoneNumber"
@@ -175,7 +175,7 @@ const PhoneMockup: React.FC<PhoneMockupProps> = ({ onClose }) => {
                         required
                         pattern="^\d{7,15}$"
                         title="7–15 digits"
-                        className="flex-1 text-sm sm:text-base text-white bg-transparent py-2 sm:py-3 px-2 sm:px-4 placeholder-white/75 focus:outline-none"
+                        className="flex-1 text-gray-900 bg-transparent py-2 px-3 placeholder-gray-400 focus:outline-none"
                       />
                     </div>
                   </div>
@@ -251,11 +251,8 @@ const PhoneMockup: React.FC<PhoneMockupProps> = ({ onClose }) => {
 
       {/* global overrides */}
       <style jsx global>{`
-        .focus-within\\:border-white:focus-within {
-          border-color: rgba(255, 255, 255, 0.75);
-        }
         input::placeholder {
-          color: rgba(255, 255, 255, 0.75);
+          color: rgba(156, 163, 175, 1); /* Tailwind’s gray-400 */
         }
         input:invalid {
           box-shadow: inset 0 0 0 1px rgba(248, 113, 113, 0.8);

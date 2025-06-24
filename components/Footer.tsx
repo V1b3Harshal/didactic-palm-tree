@@ -1,5 +1,10 @@
 import Image from "next/image"
-
+import localFont from "next/font/local"
+// Load your local FibraLight font
+const fibra = localFont({
+  src: "../assets/fonts/FibraLight.otf",
+  display: "swap",
+})
 export const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white w-full">
@@ -8,17 +13,9 @@ export const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 rounded-lg overflow-hidden shadow-lg">
-                <Image
-                  src="/logo.svg"
-                  alt=" Convis Logo"
-                  width={40}
-                  height={40}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <span className="text-xl font-semibold">
-                 Convis<span className="text-blue-400">AI</span>
+              
+              <span className="${fibra.className} text-xl ">
+                 CONVIS<span className="${fibra.className} text-blue-400">AI</span>
               </span>
             </div>
             <p className="text-gray-400 text-sm">

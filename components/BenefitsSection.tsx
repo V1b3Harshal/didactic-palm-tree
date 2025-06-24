@@ -81,7 +81,7 @@ export const BenefitsSection: React.FC = React.memo(() => {
   return (
     <section
       id="benefits"
-      className="font-sans pt-10 bg-gray-50 py-16 px-4 sm:px-6 lg:px-8"
+      className=" bg-gradient-to-br from-white via-indigo-50 to-pink-50 font-sans pt-10 bg-gray-50 py-16 px-4 sm:px-6 lg:px-8"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
