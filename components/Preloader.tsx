@@ -1,52 +1,135 @@
-// Preloader.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const Loader: React.FC = () => {
+const StyledWrapper = styled.div`
+  .pyramid-loader {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    transform-style: preserve-3d;
+    transform: rotateX(-20deg);
+  }
+
+  .wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: spin 4s linear infinite;
+  }
+
+  @keyframes spin {
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+
+  .side {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: auto;
+    transform-origin: center top;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  }
+
+  .side1 {
+    transform: rotateZ(-30deg) rotateY(90deg);
+    background: conic-gradient(#e0115f, #ff6f61, #e0115f);
+  }
+
+  .side2 {
+    transform: rotateZ(30deg) rotateY(90deg);
+    background: conic-gradient(#ff6f61, #e0115f, #ff6f61);
+  }
+
+  .side3 {
+    transform: rotateX(30deg);
+    background: conic-gradient(#e0115f, #ff6f61, #e0115f);
+  }
+
+  .side4 {
+    transform: rotateX(-30deg);
+    background: conic-gradient(#ff6f61, #e0115f, #ff6f61);
+  }
+
+  .shadow {
+    width: 60px;
+    height: 60px;
+    background: #ff6f61;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: auto;
+    transform: rotateX(90deg) translateZ(-40px);
+    filter: blur(12px);
+  }
+`;
+
+const Preloader = ({ onComplete }: { onComplete: () => void }) => {
+  const [progress, setProgress] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(timer);
+          setTimeout(() => {
+            setIsComplete(true);
+            setTimeout(onComplete, 500);
+          }, 300);
+          return 100;
+        }
+        return Math.min(100, prev + Math.random() * 15);
+      });
+    }, 150);
+
+    return () => clearInterval(timer);
+  }, [onComplete]);
+
   return (
     <StyledWrapper>
-      <div className="main">
-        <div className="up">
-          <div className="loaders">
-            <div className="loader" />
-            <div className="loader" />
-            <div className="loader" />
-            <div className="loader" />
-            <div className="loader" />
-            <div className="loader" />
-            <div className="loader" />
-            <div className="loader" />
-            <div className="loader" />
-            <div className="loader" />
+      <div
+        className={`
+          fixed inset-0 z-50 flex items-center justify-center
+          bg-gradient-to-br from-white to-indigo-100
+          transition-opacity duration-500
+          ${isComplete ? 'opacity-0 pointer-events-none' : 'opacity-100'}
+        `}
+      >
+        {/* center everything in a column with equal spacing */}
+        <div className="flex flex-col items-center justify-center gap-6 w-full max-w-xs px-4">
+          {/* Pyramid loader */}
+          <div className="pyramid-loader">
+            <div className="wrapper">
+              <span className="side side1" />
+              <span className="side side2" />
+              <span className="side side3" />
+              <span className="side side4" />
+              <span className="shadow" />
+            </div>
           </div>
-          <div className="loadersB">
-            <div className="loaderA">
-              <div className="ball0" />
+
+          {/* Title & subtitle */}
+          <div className="text-center">
+            <h2 className="text-3xl font-raleway text-gray-900">
+              CONVIS AI
+            </h2>
+            <p className="text-gray-700 mt-1">loading...</p>
+          </div>
+
+          {/* Progress bar */}
+          <div className="w-full">
+            <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div
+                className="absolute left-0 top-0 h-full bg-gradient-to-r from-indigo-500 to-pink-500 transition-all duration-300 ease-out"
+                style={{ width: `${progress}%` }}
+              />
             </div>
-            <div className="loaderA">
-              <div className="ball1" />
-            </div>
-            <div className="loaderA">
-              <div className="ball2" />
-            </div>
-            <div className="loaderA">
-              <div className="ball3" />
-            </div>
-            <div className="loaderA">
-              <div className="ball4" />
-            </div>
-            <div className="loaderA">
-              <div className="ball5" />
-            </div>
-            <div className="loaderA">
-              <div className="ball6" />
-            </div>
-            <div className="loaderA">
-              <div className="ball7" />
-            </div>
-            <div className="loaderA">
-              <div className="ball8" />
-            </div>
+            <p className="text-center text-sm font-medium text-gray-600 mt-1">
+              {Math.round(progress)}%
+            </p>
           </div>
         </div>
       </div>
@@ -54,131 +137,4 @@ const Loader: React.FC = () => {
   );
 };
 
-const StyledWrapper = styled.div`
-  .main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .loaders,
-  .loadersB {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .loader {
-    position: absolute;
-    width: 1.15em;
-    height: 13em;
-    border-radius: 50px;
-    background: #e0e0e0;
-  }
-  .loader:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 1.15em;
-    height: 5em;
-    background: #e0e0e0;
-    border-radius: 50px;
-    border: 1px solid #e2e2e2;
-    box-shadow:
-      inset 5px 5px 15px #d3d2d2ab,
-      inset -5px -5px 15px #e9e9e9ab;
-    mask-image: linear-gradient(
-      to bottom,
-      black calc(100% - 48px),
-      transparent 100%
-    );
-  }
-  .loader::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 1.15em;
-    height: 4.5em;
-    background: #e0e0e0;
-    border-radius: 50px;
-    border: 1px solid #e2e2e2;
-    box-shadow:
-      inset 5px 5px 15px #d3d2d2ab,
-      inset -5px -5px 15px #e9e9e9ab;
-    mask-image: linear-gradient(
-      to top,
-      black calc(100% - 48px),
-      transparent 100%
-    );
-  }
-  .loaderA {
-    position: absolute;
-    width: 1.15em;
-    height: 13em;
-    border-radius: 50px;
-    background: transparent;
-  }
-  .ball0,
-  .ball1,
-  .ball2,
-  .ball3,
-  .ball4,
-  .ball5,
-  .ball6,
-  .ball7,
-  .ball8 {
-    width: 1.15em;
-    height: 1.15em;
-    box-shadow:
-      rgba(0, 0, 0, 0.17) 0px -10px 10px 0px inset,
-      rgba(0, 0, 0, 0.15) 0px -15px 15px 0px inset,
-      rgba(0, 0, 0, 0.1) 0px -40px 20px 0px inset,
-      rgba(0, 0, 0, 0.06) 0px 2px 1px,
-      rgba(0, 0, 0, 0.09) 0px 4px 2px,
-      rgba(0, 0, 0, 0.09) 0px 8px 4px,
-      rgba(0, 0, 0, 0.09) 0px 16px 8px,
-      rgba(0, 0, 0, 0.09) 0px 32px 16px,
-      0px -1px 15px -8px rgba(0, 0, 0, 0.09);
-    border-radius: 50%;
-    transition: transform 800ms cubic-bezier(1, -0.4, 0, 1.4);
-    background-color: rgba(232, 232, 232, 1);
-    animation: 3.63s move ease-in-out infinite;
-  }
-
-  .loader:nth-child(2) { transform: rotate(20deg); }
-  .loader:nth-child(3) { transform: rotate(40deg); }
-  .loader:nth-child(4) { transform: rotate(60deg); }
-  .loader:nth-child(5) { transform: rotate(80deg); }
-  .loader:nth-child(6) { transform: rotate(100deg); }
-  .loader:nth-child(7) { transform: rotate(120deg); }
-  .loader:nth-child(8) { transform: rotate(140deg); }
-  .loader:nth-child(9) { transform: rotate(160deg); }
-
-  .loaderA:nth-child(2) { transform: rotate(20deg); }
-  .loaderA:nth-child(3) { transform: rotate(40deg); }
-  .loaderA:nth-child(4) { transform: rotate(60deg); }
-  .loaderA:nth-child(5) { transform: rotate(80deg); }
-  .loaderA:nth-child(6) { transform: rotate(100deg); }
-  .loaderA:nth-child(7) { transform: rotate(120deg); }
-  .loaderA:nth-child(8) { transform: rotate(140deg); }
-  .loaderA:nth-child(9) { transform: rotate(160deg); }
-
-  .ball1 { animation-delay: 0.2s; }
-  .ball2 { animation-delay: 0.4s; }
-  .ball3 { animation-delay: 0.6s; }
-  .ball4 { animation-delay: 0.8s; }
-  .ball5 { animation-delay: 1s; }
-  .ball6 { animation-delay: 1.2s; }
-  .ball7 { animation-delay: 1.4s; }
-  .ball8 { animation-delay: 1.6s; }
-
-  @keyframes move {
-    0%   { transform: translateY(0em); }
-    50%  { transform: translateY(12em); }
-    100% { transform: translateY(0em); }
-  }
-`;
-
-export default Loader;
+export default Preloader;
