@@ -104,9 +104,15 @@ export function FeaturesSection() {
 
   return (
     <section
-      id="features"
-      className="relative pb-10 pt-20 sm:pt-20 md:pt-10 lg:pt-5 rounded-3xl "
-    >
+    id="features"
+    className="
+      relative
+      pb-10
+  
+        /* same outer offset & 1.25 rem inner padding ≥1024px */
+      rounded-3xl
+    "
+  >
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-white via-indigo-50 to-pink-50 z-0 rounded-3xl" />
       

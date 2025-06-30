@@ -29,7 +29,7 @@ export default function Navigation() {
           {/* Logo Section */}
           <div className="flex items-center space-x-2">
             <div className={`${fibra.className} text-2xl text-gray-800`}>
-              CONVIS AI
+              CONVIS <span className="${fibra.className} text-blue-800">AI</span>
             </div>
           </div>
 

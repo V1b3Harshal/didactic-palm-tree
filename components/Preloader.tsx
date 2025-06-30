@@ -104,7 +104,7 @@ const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
           {/* Logo & subtitle */}
           <div className="text-center">
             <h2 className={`${fibra.className} text-3xl text-gray-900`}>
-              CONVIS AI
+              CONVIS <span className="${fibra.className} text-blue-800">AI</span>
             </h2>
             <p className="text-gray-700 mt-1">loading…</p>
           </div>

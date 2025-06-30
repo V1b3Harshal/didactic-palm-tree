@@ -1,9 +1,9 @@
 // components/DemoSection.tsx
 "use client"
 
+import React, { useState, useRef, useEffect, MouseEvent } from "react"
 import { Play, Pause, Volume2, VolumeX, RotateCcw, FastForward } from "lucide-react"
 import { DotLottieReact } from "@lottiefiles/dotlottie-react"
-import { useState, useRef, useEffect, MouseEvent } from "react"
 
 type Agent = {
   id: string
@@ -12,14 +12,12 @@ type Agent = {
   description: string
   color: string             // Tailwind gradient classes, e.g. "from-purple-500 to-blue-500"
   lottieUrl: string
-  audioUrl?: string         // Optional, guard before using
+  audioUrl?: string         // Optional
 }
 
 export const DemoSection = () => {
-  // Which agent is playing (by ID). Null means none.
   const [playingAgent, setPlayingAgent] = useState<string | null>(null)
 
-  // Demo data
   const demoAgents: Agent[] = [
     {
       id: "sam",
@@ -58,48 +56,32 @@ export const DemoSection = () => {
 
   return (
     <section
-         id="demo"
-         className="
-           font-jakarta
-           relative z-20
-         overflow-visible
-          /* pull up on sm/md/lg */
-           sm:-top-8      /* 2rem up at ≥640px */
-           md:-top-12     /* 3rem up at ≥768px */
-           lg:-top-20     /* 5rem up at ≥1024px */
-           neumorphic-inset shadow-neumorphic-inset
-            bg-gradient-to-br from-white via-indigo-50 to-pink-50 rounded-3xl
-          -mb-16            sm:-mb-20      
-   md:-mb-24      
-        "
-       >
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="rounded-3xl p-6 md:p-12 lg:p-16">
+      id="demo"
+      className="relative font-jakarta overflow-visible z-20"
+    >
+      {/* Full-bleed gradient background */}
+      <div className="w-full bg-gradient-to-br from-white via-indigo-50 to-pink-50">
+        {/* Constrained inner content */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-12 lg:py-16 space-y-12">
+          
           {/* Section Header */}
           <div className="text-center">
-            <h2
-              className="
-                font-raleway             /* Raleway ExtraLight 200 */
-                font-light
-                text-3xl md:text-4xl lg:text-5xl
-                text-gray-800 mb-6
-              "
-            >
+            <h2 className="font-raleway font-light text-3xl md:text-4xl lg:text-5xl text-gray-800 mb-6">
               Experience Our{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-600">
                 AI Voice Agents
               </span>{" "}
               in Action
             </h2>
-            <p className="font-jakarta text-lg md:text-xl text-gray-600 max-w-4xl mx-auto mb-12">
+            <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">
               Listen to real conversations powered by our intelligent voice agents,
               each specialized for different recruitment scenarios and delivering
-              human‐like interactions.
+              human­-like interactions.
             </p>
           </div>
 
-         {/* Demo Cards Grid */}
-         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8  pt-5 px-4 sm:px-6 md:px-8 rounded-3xl">
+          {/* Responsive cards grid: 1-col on mobile, 2-col at sm, 3-col at lg */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {demoAgents.map((agent) => (
               <AgentCard
                 key={agent.id}
@@ -125,29 +107,17 @@ function AgentCard({
   setPlayingAgent: (id: string | null) => void
 }) {
   const audioRef = useRef<HTMLAudioElement | null>(null)
-
-  // Track playback time and duration
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
-
-  // Mute state
   const [muted, setMuted] = useState(false)
 
-  // When metadata loads or time updates or playback ends
+  // Audio event handlers
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
-
-    const onLoaded = () => {
-      setDuration(audio.duration)
-    }
-    const onTime = () => {
-      setCurrentTime(audio.currentTime)
-    }
-    const onEnded = () => {
-      setPlayingAgent(null)
-    }
-
+    const onLoaded = () => setDuration(audio.duration)
+    const onTime   = () => setCurrentTime(audio.currentTime)
+    const onEnded  = () => setPlayingAgent(null)
     audio.addEventListener("loadedmetadata", onLoaded)
     audio.addEventListener("timeupdate", onTime)
     audio.addEventListener("ended", onEnded)
@@ -158,40 +128,26 @@ function AgentCard({
     }
   }, [setPlayingAgent])
 
-  // Sync mute state to the <audio> element
+  // Sync mute state
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.muted = muted
-    }
+    if (audioRef.current) audioRef.current.muted = muted
   }, [muted])
 
-  // Format seconds → "M:SS"
   const formatTime = (sec: number) => {
     const m = Math.floor(sec / 60)
     const s = Math.floor(sec % 60)
     return `${m}:${s < 10 ? "0" + s : s}`
   }
 
-  // Click on top Play button
+  // Play / pause toggle
   const handleMainButton = async () => {
     const audio = audioRef.current
-
-    if (!audio || !agent.audioUrl) {
-      console.warn(
-        `Cannot play "${agent.name}" because no valid audioUrl was provided.`
-      )
-      return
-    }
-
+    if (!audio || !agent.audioUrl) return
     if (!isPlaying) {
       try {
         await audio.play()
         setPlayingAgent(agent.id)
-      } catch {
-        console.warn(
-          `Failed to play audio for "${agent.name}". Check the URL.`
-        )
-      }
+      } catch {}
     } else {
       audio.pause()
       audio.currentTime = 0
@@ -199,34 +155,15 @@ function AgentCard({
     }
   }
 
-  // Bottom "Stop" button
-  const handleStop = () => {
-    const audio = audioRef.current
-    if (!audio) return
-    audio.pause()
-    audio.currentTime = 0
-    setPlayingAgent(null)
-  }
-
-  // Rewind / Forward / Mute
-  const handleRewind = () => {
-    const audio = audioRef.current
-    if (!audio) return
-    audio.currentTime = Math.max(audio.currentTime - 10, 0)
-  }
-  const handleForward = () => {
-    const audio = audioRef.current
-    if (!audio || !duration) return
-    audio.currentTime = Math.min(audio.currentTime + 10, duration)
-  }
-  const toggleMute = () => setMuted((m) => !m)
-
-  const progressPercent =
-    duration > 0 ? (currentTime / duration) * 100 : 0
+  const handleStop    = () => { if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0 } ; setPlayingAgent(null) }
+  const handleRewind  = () => { if (audioRef.current) audioRef.current.currentTime = Math.max(audioRef.current.currentTime - 10, 0) }
+  const handleForward = () => { if (audioRef.current) audioRef.current.currentTime = Math.min(audioRef.current.currentTime + 10, duration) }
+  const toggleMute    = () => setMuted((m) => !m)
+  const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0
 
   return (
-    <div className="flex flex-col bg-white rounded-[24px] overflow-hidden w-full max-w-sm min-h-[400px] shadow-md">
-      {/* 1) Lottie animation */}
+    <div className="flex flex-col bg-white rounded-[24px] overflow-hidden w-full min-h-[400px] shadow-md">
+      {/* Lottie animation */}
       <div className="w-full aspect-video">
         <DotLottieReact
           src={agent.lottieUrl}
@@ -242,54 +179,44 @@ function AgentCard({
         <audio ref={audioRef} src={agent.audioUrl} preload="metadata" />
       )}
 
-      {/* 2) Header */}
+      {/* Card header */}
       <div className="px-7 pt-6 pb-8 flex items-center justify-between">
-  <div>
-    {/* Name in Raleway SemiBold (600) */}
-    <h3 className="font-raleway font-normal  text-2xl text-gray-800 mb-1">
-      {agent.name}
-    </h3>
-    {/* Role in Raleway Light (300/400) */}
-    <p className="font-raleway font-regular text-sm text-gray-500">
-      {agent.role}
-    </p>
-  </div>
-  {!isPlaying && (
-    <button
-      onClick={handleMainButton}
-      className="bg-gradient-to-r from-purple-500 to-blue-500 hover:shadow-neumorphic-inset text-white p-3 rounded-full shadow-lg transition-all duration-200 flex items-center justify-center"
-      aria-label={agent.audioUrl ? `Play ${agent.name}` : `No audio`}
-      disabled={!agent.audioUrl}
-    >
-      <Play className="w-5 h-5" />
-    </button>
-  )}
-</div>
+        <div>
+          <h3 className="font-raleway text-2xl text-gray-800 mb-1">{agent.name}</h3>
+          <p className="text-sm text-gray-500">{agent.role}</p>
+        </div>
+        {!isPlaying && (
+          <button
+            onClick={handleMainButton}
+            className="bg-gradient-to-r from-purple-500 to-blue-500 p-3 rounded-full shadow-lg text-white transition-all duration-200"
+            aria-label={agent.audioUrl ? `Play ${agent.name}` : `No audio`}
+            disabled={!agent.audioUrl}
+          >
+            <Play className="w-5 h-5" />
+          </button>
+        )}
+      </div>
 
-      {/* 3) Description or Controls */}
+      {/* Card body */}
       <div className="flex flex-col flex-grow px-4 pb-6">
         {!isPlaying ? (
           <div className="flex-grow flex items-center justify-center">
-            <p className="text-center text-base text-gray-600">
-              {agent.description}
-            </p>
+            <p className="text-center text-gray-600">{agent.description}</p>
           </div>
         ) : (
-          <div className="flex flex-col flex-grow justify-center">
-            <AudioControls
-              audioRef={audioRef}
-              currentTime={currentTime}
-              duration={duration}
-              progressPercent={progressPercent}
-              agentColor={agent.color}
-              formatTime={formatTime}
-              handleStop={handleStop}
-              handleRewind={handleRewind}
-              handleForward={handleForward}
-              toggleMute={toggleMute}
-              muted={muted}
-            />
-          </div>
+          <AudioControls
+            audioRef={audioRef}
+            currentTime={currentTime}
+            duration={duration}
+            progressPercent={progressPercent}
+            agentColor={agent.color}
+            formatTime={formatTime}
+            handleStop={handleStop}
+            handleRewind={handleRewind}
+            handleForward={handleForward}
+            toggleMute={toggleMute}
+            muted={muted}
+          />
         )}
       </div>
     </div>
@@ -326,8 +253,7 @@ function AudioControls({
   const handleSeek = (e: MouseEvent<HTMLDivElement>) => {
     if (!audioRef.current || !duration) return
     const rect = e.currentTarget.getBoundingClientRect()
-    const clickX = e.clientX - rect.left
-    audioRef.current.currentTime = (clickX / rect.width) * duration
+    audioRef.current.currentTime = ((e.clientX - rect.left) / rect.width) * duration
   }
 
   return (
@@ -335,54 +261,29 @@ function AudioControls({
       <div className="flex items-center justify-between mb-4">
         <button
           onClick={handleStop}
-          className="
-            w-10 h-10 sm:w-11 sm:h-11
-            bg-gray-100
-            rounded-full flex items-center justify-center
-            shadow-neumorphic hover:shadow-neumorphic-inset
-            transition-all duration-200
-          "
+          className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center shadow-neumorphic hover:shadow-neumorphic-inset transition-all duration-200"
           aria-label="Stop"
         >
           <Pause className="w-5 h-5 text-gray-600" />
         </button>
-
         <div className="flex items-center space-x-3">
           <button
             onClick={handleRewind}
-            className="
-              w-8 h-8 sm:w-9 sm:h-9
-              bg-gray-100
-              rounded-full flex items-center justify-center
-              shadow-neumorphic-inset hover:shadow-neumorphic
-              transition-all duration-200
-            "
+            className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center shadow-neumorphic-inset hover:shadow-neumorphic transition-all duration-200"
             aria-label="Rewind 10s"
           >
             <RotateCcw className="w-4 h-4 text-gray-600" />
           </button>
           <button
             onClick={handleForward}
-            className="
-              w-8 h-8 sm:w-9 sm:h-9
-              bg-gray-100
-              rounded-full flex items-center justify-center
-              shadow-neumorphic-inset hover:shadow-neumorphic
-              transition-all duration-200
-            "
+            className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center shadow-neumorphic-inset hover:shadow-neumorphic transition-all duration-200"
             aria-label="Forward 10s"
           >
             <FastForward className="w-4 h-4 text-gray-600" />
           </button>
           <button
             onClick={toggleMute}
-            className="
-              w-8 h-8 sm:w-9 sm:h-9
-              bg-gray-100
-              rounded-full flex items-center justify-center
-              shadow-neumorphic-inset hover:shadow-neumorphic
-              transition-all duration-200
-            "
+            className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center shadow-neumorphic-inset hover:shadow-neumorphic transition-all duration-200"
             aria-label={muted ? "Unmute" : "Mute"}
           >
             {muted ? (

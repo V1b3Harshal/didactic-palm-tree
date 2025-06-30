@@ -2,6 +2,7 @@
 
 import React from "react";
 import localFont from "next/font/local";
+import { PointerHighlight } from "@/components/ui/pointer-highlight";
 import PhoneMockup from "./PhoneMockup";
 
 // Load your local Inertia font
@@ -15,59 +16,50 @@ export const Hero: React.FC = () => {
     <section
       className="
         relative
-        pt-20 flex flex-col items-center w-full
-        overflow-hidden  bg-gradient-to-br from-white via-indigo-50 to-pink-50
-        [contain:paint]
+        pt-20 flex flex-col items-center w-full   bg-gradient-to-br from-white via-indigo-50 to-pink-50
+        [contain:paint]   
+     
       "
     >
-      {/* ─── Hero Text (centered on all screens) ─── */}
-      <div className="
+      {/* ─── Hero Text (centered) and PhoneMockup … ─── */}
+      <div
+        className="
           relative z-20
-          w-full max-w-5xl       /* constrain width */
-          mx-auto                /* center container */
-          px-4 sm:px-6 lg:px-0   /* remove large-screen padding */
-          text-center
-          pointer-events-none
-        ">
-        <h1 className={`
+          w-full max-w-5xl
+          mx-auto px-4 sm:px-6 lg:px-0
+          text-center pointer-events-none
+        "
+      >
+        <h1
+          className={`
             ${inertia.className}
-            
-            text-5xl     /* base */
-            sm:text-7xl  /* ≥640px */
-            md:text-8xl  /* ≥768px */
-            lg:text-8xl  /* ≥1024px */
-            leading-tight
-            tracking-tight
-            text-gray-800
+            text-5xl sm:text-7xl md:text-8xl lg:text-8xl
+            leading-tight tracking-tight text-gray-600
           `}
         >
-          <span className="block sm:inline">AI Voice Agents That Talk </span>
+          <span className="block sm:inline">AI Voice Agents That Talk</span>
           <br className="hidden sm:block" />
-          <span className="block sm:inline">Like Humans</span>
+          <span className="block sm:inline bg-gradient-to-r from-purple-500 via-indigo-400 to-orange-400 bg-clip-text text-transparent font-normal">
+            Like Humans
+          </span>
         </h1>
-        <p className="
-            mt-6
-            text-lg      /* base */
-            sm:text-xl   /* ≥640px */
-            md:text-2xl  /* ≥768px */
-            lg:text-3xl  /* ≥1024px */
-            font-jakarta
-            text-gray-800
-          "
-        >
-          Deploy lifelike conversational agents in minutes. No code required.
+
+        {/* Now using inline <span> wrapper, no more <div> inside <p> */}
+        <p className="mt-6 text-lg sm:text-xl md:text-2xl lg:text-3xl font-jakarta text-gray-800">
+          Deploy lifelike{" "}
+          <PointerHighlight> 
+            <span> conversational agents </span>
+           </PointerHighlight>{" "}
+          in minutes. No code required.
         </p>
       </div>
 
-      {/* ─── Phone Mockup (unchanged) ─── */}
       <div
         className="
           relative z-30
           w-full max-w-xs sm:max-w-sm md:max-w-md
           h-[400px] sm:h-[450px] md:h-[500px]
-          mt-8
-          px-0 sm:px-4
-          pointer-events-none
+          mt-8 px-0 sm:px-4 pointer-events-none
         "
         style={{
           transformStyle: "preserve-3d",
