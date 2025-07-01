@@ -30,19 +30,27 @@ export const Hero: React.FC = () => {
           text-center pointer-events-none
         "
       >
-        <h1
-          className={`
-            ${inertia.className}
-            text-5xl sm:text-7xl md:text-8xl lg:text-8xl
-            leading-tight tracking-tight text-gray-600
-          `}
-        >
-          <span className="block sm:inline">AI Voice Agents That Talk</span>
-          <br className="hidden sm:block" />
-          <span className="block sm:inline bg-gradient-to-r from-purple-500 via-indigo-400 to-orange-400 bg-clip-text text-transparent font-normal">
-            Like Humans
-          </span>
-        </h1>
+       <h1
+  className="
+    text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5rem]
+    font-raleway tracking-wide leading-tight text-gray-700
+    uppercase
+  "
+>
+  <span className="block sm:inline">AI Voice Agents That</span>
+  <br className="hidden sm:block" />
+  <span className="block sm:inline">Talk like </span>
+  <span
+    className="
+      block sm:inline
+      font-raleway
+      bg-gradient-to-r from-purple-600 via-indigo-500 to-orange-400
+      bg-clip-text text-transparent
+    "
+  >
+     Humans
+  </span>
+</h1>
 
         {/* Now using inline <span> wrapper, no more <div> inside <p> */}
         <p className="mt-6 text-lg sm:text-xl md:text-2xl lg:text-3xl font-jakarta text-gray-800">
