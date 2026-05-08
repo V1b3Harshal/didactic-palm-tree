@@ -1,4 +1,3 @@
-// lib/hooks/useLenisScroll.ts
 'use client'
 
 import { RefObject, useEffect } from 'react'
