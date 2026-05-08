@@ -36,6 +36,11 @@ export const metadata: Metadata = {
     title: 'Convis | Human-Like AI Voice Agents',
     description: 'Deploy lifelike conversational AI voice agents in minutes.',
   },
+  icons: {
+    icon: '/logo.svg',
+    shortcut: '/logo.svg',
+    apple: '/logo.svg',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

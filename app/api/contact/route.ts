@@ -70,6 +70,23 @@ export async function POST(request: Request): Promise<Response> {
       );
     }
 
+    // ✅ Check for SMTP config
+    const isSmtpConfigured = process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS;
+
+    if (!isSmtpConfigured) {
+      console.log("--- CONTACT FORM SUBMISSION (DEMO MODE) ---");
+      console.log(`Name: ${name}`);
+      console.log(`Email: ${email}`);
+      console.log(`Company: ${company || "(none)"}`);
+      console.log(`Message: ${message}`);
+      console.log("-------------------------------------------");
+      
+      return new NextResponse(
+        JSON.stringify({ message: "Success! (Demo Mode: Message logged to console)" }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     // ✅ verify your SMTP connection first
     await transporter.verify();
 

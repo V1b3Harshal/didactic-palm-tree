@@ -13,9 +13,9 @@ export const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              
-              <span className="${fibra.className} text-xl ">
-                 CONVIS <span className="${fibra.className} text-blue-400">AI</span>
+              <img src="/logo.svg" alt="Convis Logo" className="w-8 h-8 brightness-110" />
+              <span className={`${fibra.className} text-xl`}>
+                 CONVIS <span className="text-blue-400">AI</span>
               </span>
             </div>
             <p className="text-gray-400 text-sm">

@@ -68,32 +68,19 @@ const PhoneMockup: React.FC<PhoneMockupProps> = ({ onClose }) => {
 
     setLoading(true)
     setError('')
-    try {
-      const res = await fetch('/api/call', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          countryCode: countryCode.trim(),
-          phoneNumber: phoneNumber.trim(),
-        }),
-      })
-      const data = await res.json()
-      if (!res.ok) {
-        setError(data.error || 'Call failed')
-      } else {
-        setConfirmed(true)
-        // Auto-reset after 2s
-        setTimeout(() => {
-          setConfirmed(false)
-          setCountryCode('')
-          setPhoneNumber('')
-        }, 2000)
-      }
-    } catch (err: any) {
-      setError(err.message || 'Network error')
-    } finally {
+
+    // Simulated call for demo purposes (bypassing backend)
+    setTimeout(() => {
+      setConfirmed(true)
       setLoading(false)
-    }
+
+      // Auto-reset after 3s
+      setTimeout(() => {
+        setConfirmed(false)
+        setCountryCode('')
+        setPhoneNumber('')
+      }, 3000)
+    }, 2000)
   }
 
   return (
