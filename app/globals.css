@@ -224,7 +224,12 @@
 /* Lenis smooth scrolling base styles */
 html.lenis,
 html.lenis body {
-  height: auto;
+  height: auto !important;
+}
+
+/* 🛑 Critical: Disable native smooth scroll to prevent jitter/vibration with Lenis */
+html {
+  scroll-behavior: auto !important;
 }
 
 .lenis.lenis-smooth {
@@ -241,6 +246,39 @@ html.lenis body {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
+}
+
+/* 🚀 Hardware Acceleration & Anti-Flicker */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Isolate all major sections to prevent cross-section layout recalculations */
+section {
+  isolation: isolate;
+  contain: layout;
+  transform: translateZ(0); /* Force GPU layer */
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  background-color: white;
+  /* Prevent any involuntary layout shifts */
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  overscroll-behavior: none;
+}
+
+/* Ensure images and heavy content don't flicker on reveal */
+img, svg, canvas, .lottie-container {
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 @media screen and (width: 359px) and (height: 852px) {

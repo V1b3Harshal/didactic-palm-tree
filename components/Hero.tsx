@@ -14,12 +14,7 @@ const inertia = localFont({
 export const Hero: React.FC = () => {
   return (
     <section
-      className="
-        relative
-        pt-20 flex flex-col items-center w-full   bg-gradient-to-br from-white via-indigo-50 to-pink-50
-        [contain:paint]   
-     
-      "
+      className="relative pt-20 flex flex-col items-center w-full bg-gradient-to-br from-white via-indigo-50 to-pink-50"
     >
       {/* ─── Hero Text (centered) and PhoneMockup … ─── */}
       <div

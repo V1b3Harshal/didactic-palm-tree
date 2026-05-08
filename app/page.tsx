@@ -16,11 +16,13 @@ export default function Home() {
   const [showContent, setShowContent] = useState(false)
 
   const handlePreloadComplete = () => {
-    setIsLoading(false)
-    // small delay to let preloader fade-out
+    // 1. Content is ready to be revealed
+    setShowContent(true)
+    
+    // 2. Wait for preloader to finish its 500ms fade-out before unmounting
     setTimeout(() => {
-      setShowContent(true)
-    }, 100)
+      setIsLoading(false)
+    }, 600)
   }
 
   useEffect(() => {
