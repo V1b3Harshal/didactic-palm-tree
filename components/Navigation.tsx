@@ -27,12 +27,16 @@ export default function Navigation() {
 
         <div className="relative z-10 flex items-center justify-between px-6 py-4">
           {/* Logo Section */}
-          <div className="flex items-center space-x-3">
-            <img src="/logo.svg" alt="Convis Logo" className="w-8 h-8" />
+          <a href="#" className="flex items-center space-x-3 group">
+            <img 
+              src="/logo.svg" 
+              alt="Convis Logo" 
+              className="w-8 h-8 transition-transform duration-300 group-hover:scale-110" 
+            />
             <div className={`${fibra.className} text-2xl text-gray-800`}>
               CONVIS <span className="text-blue-800">AI</span>
             </div>
-          </div>
+          </a>
 
           {/* Desktop Links + Button */}
           <div className="hidden md:flex items-center space-x-8">
